@@ -1,0 +1,166 @@
+.newYearsCont {
+    background-image: url("./assets/newyears.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.countDownCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.title {
+    text-align: center;
+    font-size: 40px;
+    background-color: #f8e28ed9;
+    width: 80%;
+    padding: 11px 0;
+    margin: 44px auto 66px auto;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+.countDownCont .containingCard {
+    display: inline-block;
+    margin: 0 11px;
+    background-color: white;
+    position: relative;
+}
+
+.countDownCont div .countTitle {
+    display: block;
+    text-align: center;
+    padding: 11px 22px 11px 22px;
+    background-color: #6f57009e;
+    font-size: 20px;
+}
+
+.card {
+    padding: 0;
+    text-align: center;
+    display: block;
+    background: none;
+    height: 100%;
+    font-size: 40px;
+    position: relative;
+}
+
+.card b {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.card .top{
+    height: 50%;
+    /* border-bottom: 1px solid black; */
+    background-color: #dadada;
+    box-shadow: inset 0px -6px 20px -14px black;
+    z-index: 100;
+}
+
+.nextNum{
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.nextNum::after{
+    content: attr(data-number);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+}
+
+.flipCont{
+    position: absolute;
+    display: block;
+    width: calc( 100% - 1px);
+    height: 100%;
+    transform-style: preserve-3d;
+    transform-origin: bottom;
+    transition: transform 0.3s linear;
+    z-index: 30;
+
+
+}
+
+.flipFront, .flipBack{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flipFront{
+    background-color: #dadada;
+    box-shadow: inset 0px -6px 20px -14px black;
+    overflow: hidden;
+}
+.flipBack{
+    transform: rotateY(180deg) rotateZ(180deg);
+    z-index: 100;
+    background-color: white;
+    box-shadow: inset 0px 8px 20px -14px black;
+    overflow: hidden;
+
+}
+
+.flipFront span{
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    
+}
+
+.flipBack span{
+    position: relative;
+    bottom: 50%;
+}
+
+
+.card .bottom{
+    box-shadow: inset 0px 8px 20px -14px black;
+    z-index: 20;
+    background-color: white;
+    height: 50%;
+}
+
+.card .bottom span{
+    position: relative;
+    bottom: 50%;
+}
+
+
+.countDownCont .containingCard div {
+    position: relative;
+    height: 80px;
+}
+
+.flipped{
+    animation-name: flip;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes flip{
+    from{transfrom: rotateX(0deg)}
+    to{transform: rotateX(180deg)}
+}

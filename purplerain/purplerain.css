@@ -1,0 +1,15 @@
+.purpleRainCont{
+    overflow: hidden;
+    position: relative;
+}
+.droplet{
+    height: 10px;
+    width: 10px;
+    border-radius: 0 50% 50% 50%;
+    background-color: purple;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    transition: all 1s linear;
+    transform: rotate(45deg);
+}
