@@ -111,6 +111,21 @@
     border-right: 1px solid black;
 }
 
+.equations .times{
+    color: transparent;
+    position: relative;
+}
+
+.equations .times::after{
+    content: 'x';
+    display: block;
+    color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(50% - 6px);
+}
+
 .equations .equals {
     border-bottom-right-radius: 20px;
 }
