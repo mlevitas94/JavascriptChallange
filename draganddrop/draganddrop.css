@@ -1,0 +1,83 @@
+.projectCont .dragAndDrop{
+    background-color: #313131;
+    overflow: hidden;
+    color: #d8d8d8;
+}
+
+/* section design */
+
+.sectionContainers{
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.sectionContainers span{
+    margin: 22px 0;
+    display: block;
+}
+
+.left, .right{
+    width: 40%;
+}
+
+.left{
+    height: 100%;
+}
+
+.itemGroup{
+    width: 100%;
+    height: 54%;
+    background: #5f5f5f;
+    border: 1px solid white;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+.right .itemGroup{
+    height: 81%;
+}
+
+/* inside groups */
+
+.item{
+    margin: 22px 11px;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #292929;
+}
+
+.item:hover{
+    cursor: pointer;
+}
+
+/* add input area */
+.newInput{
+    margin-top: 22px;
+
+}
+.newInput label{
+    display: block;
+    margin-bottom: 22px;
+}
+
+.newInput input{
+    display: block;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+}
+
+.newInput button{
+    margin-top: 22px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: #5f5f5f;
+    color: #d8d8d8;
+}
+
+.newInput button:hover{
+    cursor: pointer;
+}
