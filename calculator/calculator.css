@@ -92,6 +92,10 @@
     width: 33.3%;
 }
 
+.numbers .clear{
+    width: 100%;
+}
+
 /* equations side */
 .equations {
     width: 25%;
