@@ -2,6 +2,12 @@
     background-color: #313131;
     overflow: hidden;
     color: #d8d8d8;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* section design */
@@ -31,7 +37,16 @@
     background: #5f5f5f;
     border: 1px solid white;
     border-radius: 5px;
+    position: relative;
+}
+
+.itemGroup .inner{
     overflow-y: auto;
+    position: relative;
+    height: 100%;
+}
+
+.itemGroup .outer{
 }
 
 .right .itemGroup{
@@ -46,6 +61,13 @@
     padding: 5px;
     border-radius: 5px;
     background-color: #292929;
+}
+
+.itemOnMouse{
+    max-width: 216px;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
 }
 
 .item:hover{
