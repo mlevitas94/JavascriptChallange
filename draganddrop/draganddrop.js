@@ -6,15 +6,87 @@ let groups = {
 const groupOneInner = document.querySelector('.groupOne .inner')
 const groupTwoInner = document.querySelector('.groupTwo .inner')
 
+let uniqueItem = 0
 
 
+//function to render group lists based on above object
 
-//removes grabbed item wherever it may be
-document.querySelector('.projectCont').addEventListener('mouseup', () => {
-    document.querySelectorAll('.outer .item').forEach(item => {
+const renderGroups = () => {
+    document.querySelectorAll('.item').forEach(item => {
         item.remove()
     })
+    groups.groupOne.forEach(item => {
+        groupOneInner.appendChild(item)
+    })
+
+    groups.groupTwo.forEach(item => {
+        console.log(item)
+        groupTwoInner.appendChild(item)
+    })
+}
+
+
+//removes grabbed item and makes original placement appear if not re-allocated 
+const removeGrabbed = () => {
+    const items = document.querySelectorAll('.itemGroup .inner .item')
+    document.querySelector('.itemOnMouse').remove()
+
+    items.forEach(item => {
+        item.childNodes[0].style.opacity = '1'
+    })
+}
+
+//add listener for created or transfered item for grab
+
+const newGrabListener = (toBeGrabbed) => {
+    toBeGrabbed.addEventListener('mousedown', (e) => {
+        const itemOnMouse = document.createElement('div')
+
+        itemOnMouse.className = 'item itemOnMouse'
+
+        itemOnMouse.innerHTML = `${toBeGrabbed.innerHTML}`
+
+
+        document.querySelector('.groupOne .outer').appendChild(itemOnMouse)
+
+        document.querySelector('.itemOnMouse').style.left = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[0] - 11}px - ${e.target.clientWidth / 2}px)`
+        document.querySelector('.itemOnMouse').style.top = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[1] - 22}px - ${e.target.clientHeight / 2}px)`
+
+        e.target.style.opacity = '0'
+
+
+    })
+}
+
+
+
+
+//removes grabbed item wherever it may be and allocates to group if mouse up on it 
+document.querySelector('.projectCont').addEventListener('mouseup', (e) => {
+
+    let grabbed = document.querySelector('.itemOnMouse')
+
+    removeGrabbed()
+    let selectedGroup = document.elementFromPoint(event.clientX, event.clientY).closest('.itemGroup').classList
+
+    if (selectedGroup[0] === 'itemGroup') {
+        for (let group in groups) {
+            if (group === selectedGroup[1]) {
+                return
+            } else {
+
+                grabbed.classList.remove('itemOnMouse')
+                newGrabListener(grabbed)
+                groups[selectedGroup[1]].push(grabbed)
+
+
+                renderGroups()
+            }
+        }
+
+    }
 })
+
 
 
 
@@ -23,13 +95,17 @@ const getMousePosition = (group, e) => {
     let rect = group.getBoundingClientRect();
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
-    return [x,y]
+    return [x, y]
 }
 
+//calculation if grabbed item is up to make it move with the mouse
 document.querySelector('.dragAndDrop').addEventListener('mousemove', (e) => {
     const draggedItem = document.querySelector('.itemOnMouse')
-    draggedItem.style.left = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[0] - 11}px - ${draggedItem.clientWidth/2}px)`
-    draggedItem.style.top = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[1] - 22}px - ${draggedItem.clientHeight/2}px)`
+    if (draggedItem) {
+        draggedItem.style.left = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[0] - 11}px - ${draggedItem.clientWidth / 2}px)`
+        draggedItem.style.top = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[1] - 22}px - ${draggedItem.clientHeight / 2}px)`
+
+    }
 })
 
 
@@ -46,31 +122,18 @@ document.querySelector('.newInput button').addEventListener('click', () => {
 
     let newItem = document.createElement('div')
 
-    newItem.className = 'item'
+    newItem.className = `item item${uniqueItem}`
+    uniqueItem++
 
     newItem.innerHTML = `<p>${input.value}</p>`
 
-    newItem.addEventListener('mousedown', (e) => {
-        const itemOnMouse = document.createElement('div')
+    newGrabListener(newItem)
 
-        itemOnMouse.className = 'item itemOnMouse'
 
-        itemOnMouse.innerHTML = `${newItem.innerHTML}`
-
-        
-        document.querySelector('.groupOne .outer').appendChild(itemOnMouse)
-        
-        document.querySelector('.itemOnMouse').style.left = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[0] - 11}px - ${e.target.clientWidth/2}px)`
-        document.querySelector('.itemOnMouse').style.top = `calc(${getMousePosition(document.querySelector('.groupOne'), e)[1] - 22}px - ${e.target.clientHeight/2}px)`
-
-        
-        
-    })
-
-    
 
     groups.groupOne.push(newItem)
-    groupOneInner.appendChild(newItem)
+
+    renderGroups()
 
     input.value = ''
 })
