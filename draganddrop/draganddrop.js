@@ -9,7 +9,7 @@ const groupTwoInner = document.querySelector('.groupTwo .inner')
 let uniqueItem = 0
 
 
-//function to render group lists based on above object
+//function to render group lists based on "groups" object
 
 const renderGroups = () => {
     document.querySelectorAll('.item').forEach(item => {
@@ -20,7 +20,6 @@ const renderGroups = () => {
     })
 
     groups.groupTwo.forEach(item => {
-        console.log(item)
         groupTwoInner.appendChild(item)
     })
 }
@@ -36,13 +35,13 @@ const removeGrabbed = () => {
     })
 }
 
-//add listener for created or transfered item for grab
+//add listener for created or transfered item to allow grabbing
 
-const newGrabListener = (toBeGrabbed) => {
+const newGrabListener = (toBeGrabbed, uniqueItemPlace) => {
     toBeGrabbed.addEventListener('mousedown', (e) => {
         const itemOnMouse = document.createElement('div')
 
-        itemOnMouse.className = 'item itemOnMouse'
+        itemOnMouse.className = `item itemOnMouse item${uniqueItemPlace}`
 
         itemOnMouse.innerHTML = `${toBeGrabbed.innerHTML}`
 
@@ -74,12 +73,17 @@ document.querySelector('.projectCont').addEventListener('mouseup', (e) => {
             if (group === selectedGroup[1]) {
                 return
             } else {
-
+                
                 grabbed.classList.remove('itemOnMouse')
-                newGrabListener(grabbed)
+                newGrabListener(grabbed, grabbed.classList[1])
                 groups[selectedGroup[1]].push(grabbed)
 
-
+                groups[selectedGroup[1] === 'groupOne' ? 'groupTwo' : 'groupOne'].forEach((item, i, array) => {
+                    console.log(item.classList, grabbed.classList[1])
+                    if(item.classList.contains(grabbed.classList[1])){
+                        array.splice(i, 1)
+                    }
+                })
                 renderGroups()
             }
         }
@@ -123,14 +127,13 @@ document.querySelector('.newInput button').addEventListener('click', () => {
     let newItem = document.createElement('div')
 
     newItem.className = `item item${uniqueItem}`
-    uniqueItem++
 
     newItem.innerHTML = `<p>${input.value}</p>`
 
-    newGrabListener(newItem)
+    newGrabListener(newItem, uniqueItem)
 
-
-
+    uniqueItem++
+    
     groups.groupOne.push(newItem)
 
     renderGroups()
