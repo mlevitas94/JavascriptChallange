@@ -41,7 +41,7 @@ const newGrabListener = (toBeGrabbed, uniqueItemPlace) => {
     toBeGrabbed.addEventListener('mousedown', (e) => {
         const itemOnMouse = document.createElement('div')
 
-        itemOnMouse.className = `item itemOnMouse item${uniqueItemPlace}`
+        itemOnMouse.className = `item itemOnMouse ${toBeGrabbed.classList[1]} from${e.path[3].classList[1]}`
 
         itemOnMouse.innerHTML = `${toBeGrabbed.innerHTML}`
 
@@ -55,6 +55,7 @@ const newGrabListener = (toBeGrabbed, uniqueItemPlace) => {
 
 
     })
+    //unique item being raised for old items being dragged
 }
 
 
@@ -62,30 +63,27 @@ const newGrabListener = (toBeGrabbed, uniqueItemPlace) => {
 
 //removes grabbed item wherever it may be and allocates to group if mouse up on it 
 document.querySelector('.projectCont').addEventListener('mouseup', (e) => {
-
+    //check here for douplicate problems
     let grabbed = document.querySelector('.itemOnMouse')
 
+    if(!grabbed){return}
+
+    let groupFrom = grabbed.classList[3]
     removeGrabbed()
-    let selectedGroup = document.elementFromPoint(event.clientX, event.clientY).closest('.itemGroup').classList
+    let selectedGroup = document.elementFromPoint(e.clientX, e.clientY).closest('.itemGroup').classList
 
     if (selectedGroup[0] === 'itemGroup') {
-        for (let group in groups) {
-            if (group === selectedGroup[1]) {
-                return
-            } else {
-                
-                grabbed.classList.remove('itemOnMouse')
-                newGrabListener(grabbed, grabbed.classList[1])
-                groups[selectedGroup[1]].push(grabbed)
+        if(groupFrom !== `from${selectedGroup[1]}`){
+            grabbed.classList.remove('itemOnMouse')
+            newGrabListener(grabbed, uniqueItem)
+            groups[selectedGroup[1]].push(grabbed)
 
-                groups[selectedGroup[1] === 'groupOne' ? 'groupTwo' : 'groupOne'].forEach((item, i, array) => {
-                    console.log(item.classList, grabbed.classList[1])
-                    if(item.classList.contains(grabbed.classList[1])){
-                        array.splice(i, 1)
-                    }
-                })
-                renderGroups()
-            }
+            groups[selectedGroup[1] === 'groupOne' ? 'groupTwo' : 'groupOne'].forEach((item, i, array) => {
+                if(item.classList.contains(grabbed.classList[1])){
+                    array.splice(i, 1)
+                }
+            })
+            renderGroups()
         }
 
     }
@@ -117,7 +115,6 @@ document.querySelector('.dragAndDrop').addEventListener('mousemove', (e) => {
 
 //also adds the click drag event to the new item
 document.querySelector('.newInput button').addEventListener('click', () => {
-
     const input = document.querySelector('.newInput input')
 
     if (!input.value) {
