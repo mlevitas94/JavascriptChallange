@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./newyears/newyears.css" />
     <link rel="stylesheet" href="./calculator/calculator.css" />
     <link rel="stylesheet" href="./draganddrop/draganddrop.css" />
+    <link rel="stylesheet" href="./hearthstone/hearthstone.css" />
     <link rel="stylesheet" href="./reset.css" />
 </head>
 
@@ -152,11 +153,54 @@
                 </div>
             </div>
         </div>
+        <div class="projectSection hearthCont">
+            <div class="inputSide">
+                <div class="inputSection">
+                    <span>Search</span>
+                    <input type="text" name="search" id="search">
+                </div>
+                <div class="inputSection">
+                    <span>Rarity</span>
+                    <div class="rarityCont">
+                        <input type="checkbox" name="rarity" id="free">
+                        <input type="checkbox" name="rarity" id="common">
+                        <input type="checkbox" name="rarity" id="rare">
+                        <input type="checkbox" name="rarity" id="epic">
+                        <input type="checkbox" name="rarity" id="legendary">
+                        <label for="free" class="free"></label>
+                        <label for="common" class="common"></label>
+                        <label for="rare" class="rare"></label>
+                        <label for="epic" class="epic"></label>
+                        <label for="legendary" class="legendary"></label>
+                    </div>
+                </div>
+                <div class="inputSection">
+                    <span>Cost</span>
+                    <input type="range" value="0" id="cost" name="cost"
+                    min="0" max="10">
+                    <label for="cost" class="cost">0</label>
+                </div>
+                <div class="inputSection">
+                    <span>Attack</span>
+                    <input type="range" value="0" id="attack" name="attack"
+                    min="0" max="10">
+                    <label for="attack" class="attack">0</label>
+                </div>
+                <div class="inputSection">
+                    <span>Health</span>
+                    <input type="range" value="0" id="health" name="health"
+                    min="0" max="10">
+                    <label for="health" class="health">0</label>
+                </div>
+            </div>
+            <div class="cardSide"></div>
+        </div>
     </div>
     <script src="./purplerain/purpleRain.js"></script>
     <script src="./newyears/newyears.js"></script>
     <script src="./calculator/calculator.js"></script>
     <script src="./draganddrop/draganddrop.js"></script>
+    <script src="./hearthstone/hearthstone.js"></script>
 </body>
 
 </html>

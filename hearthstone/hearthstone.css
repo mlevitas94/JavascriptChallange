@@ -1,0 +1,74 @@
+.hearthCont {
+    display: flex;
+}
+.inputSide,
+.cardSide {
+    height: 100%;
+}
+.inputSide {
+    width: 30%;
+    background-color: red;
+}
+
+.inputSection {
+    margin: 33px 11px 0 11px;
+}
+
+.inputSection span {
+    border-bottom: 1px solid black;
+    padding-bottom: 11px;
+    display: block;
+}
+
+.inputSection input {
+    margin-top: 11px;
+}
+
+.inputSection input[type='range']{
+    width: 78%;
+}
+
+.rarityCont {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 11px;
+}
+
+.rarityCont input {
+    display: none;
+}
+.rarityCont label {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.rarityCont label:hover{
+    cursor: pointer;
+}
+
+.free {
+    background-color: black;
+}
+
+.common {
+    background-color: green;
+}
+
+.rare {
+    background-color: blue;
+}
+
+.epic {
+    background-color: purple;
+}
+
+.legendary {
+    background-color: orange;
+}
+
+.cardSide {
+    width: 70%;
+    background-color: blue;
+}
