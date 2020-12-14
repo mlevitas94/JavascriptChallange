@@ -8,7 +8,9 @@ document.querySelectorAll(".inputSection input").forEach(input => {
 
 let cards = {}
 
-let limit = 10
+let displayCards = []
+
+let limit = 0
 
 let search = null
 
@@ -20,18 +22,59 @@ let attack = null
 
 let health = null
 
-const renderCards = (limit, search, rarity, cost, attack, health) => {
+const renderCards = (search, rarity, cost, attack, health) => {
+    startingLimit = limit
     requestedCards = []
-    for (const set in cards) {
-        if (set === 'Hero Skins') {
-            continue
+
+    const cardScroll = document.querySelector('.cardScroll')
+
+    const filterCards = () => {
+        for (const set in cards) {
+            console.log(set)
+            if (set === 'Hero Skins') {
+                continue
+            }
+            for(let i = 0; i <= cards[set].length ; i++){
+                if(startingLimit === limit + 4){
+                    return
+                }
+                if(cards[set][i].type === "Hero"){
+                    continue
+                }
+                requestedCards.push(cards[set][i])
+                startingLimit++
+            }
         }
     }
+
+    filterCards()
+
+    limit += 4
+    
+    displayCards = [...displayCards, ...requestedCards]
+
+    for(let i = 0; i < displayCards.length; i++){
+        let img = document.createElement('img')
+        img.setAttribute('src', displayCards[i].img)
+
+
+        cardScroll.append(img)
+
+
+
+    }
+
+    
+
 }
 
 
-fetch('/carddata').then(response => {
-    console.log(response)
+fetch('http://localhost:5555/carddata').then(response => {
+    response.json().then(body => {
+         cards = body
+         console.log(cards)
+         renderCards()
+    })
 }).catch(err => {
     console.error(err);
 });

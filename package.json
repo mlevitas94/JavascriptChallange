@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Small javascript modules to showcase understand of certain concepts",
   "main": "index.js",
-  "proxy" : "localhost:5555",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +17,8 @@
   },
   "homepage": "https://github.com/mlevitas94/JavascriptChallange#readme",
   "dependencies": {
+    "axios": "^0.21.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
   }

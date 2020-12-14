@@ -71,4 +71,24 @@
 .cardSide {
     width: 70%;
     background-color: blue;
+    overflow: scroll;
+
+}
+
+.cardScroll{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: calc(100% + 100px);
+    align-content: space-evenly;
+}
+
+.cardSide img{
+    width: 45%;
+    transform: scale(1);
+    transition: all 0.3s linear;
+}
+
+.cardSide img:hover{
+    transform: scale(1.2);
 }
