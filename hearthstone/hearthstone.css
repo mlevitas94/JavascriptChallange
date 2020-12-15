@@ -75,11 +75,16 @@
 
 }
 
+.cardSide button{
+    display: block;
+    margin: 66px auto 22px auto;
+
+}
+
 .cardScroll{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    height: calc(100% + 100px);
     align-content: space-evenly;
 }
 

@@ -17,7 +17,6 @@ app.get('/carddata', cors(), (req, res) => {
         }
     };
     axios.request(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards?collectible=1`, options).then(response => {
-        console.log(response)
 
         return res.status(200).send(response.data)
 

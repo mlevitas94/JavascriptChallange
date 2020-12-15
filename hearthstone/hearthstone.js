@@ -1,3 +1,4 @@
+//left side input event listeners for changing html and search filter values
 document.querySelectorAll(".inputSection input").forEach(input => {
     if (input.type === 'range') {
         input.addEventListener('change', (e) => {
@@ -6,11 +7,13 @@ document.querySelectorAll(".inputSection input").forEach(input => {
     }
 })
 
+//object for cards from api, array diplaying filtered cards/ numbers for limiting the amount, and filter values
+
 let cards = {}
 
 let displayCards = []
 
-let limit = 0
+let cardCount = 0
 
 let search = null
 
@@ -22,36 +25,48 @@ let attack = null
 
 let health = null
 
-const renderCards = (search, rarity, cost, attack, health) => {
-    startingLimit = limit
-    requestedCards = []
+
+//render card function will render upon page refresh and load more, still storing prevously rendered cards based on loadMore param
+const renderCards = (loadMore, search, rarity, cost, attack, health) => {
+    let limit = 0
+    let requestedCards = []
+    let tempCardCount = cardCount
 
     const cardScroll = document.querySelector('.cardScroll')
 
+    if(!loadMore){
+        cardCount = 0
+    }
+
+    //compre carcount and temp card count down here for load more potential
     const filterCards = () => {
         for (const set in cards) {
-            console.log(set)
-            if (set === 'Hero Skins') {
+            if (set === 'Hero Skins' || cards[set].length === 0) {
                 continue
             }
-            for(let i = 0; i <= cards[set].length ; i++){
-                if(startingLimit === limit + 4){
-                    return
-                }
-                if(cards[set][i].type === "Hero"){
+            for(let i = 0; i < cards[set].length ; i++){
+                if(cards[set][i]?.type === "Hero"){
                     continue
                 }
+                if(tempCardCount !== 0){
+                    tempCardCount--
+                    continue
+                }
+
+                if(limit === 4 ){
+                    return
+                }
+
                 requestedCards.push(cards[set][i])
-                startingLimit++
+                limit ++ 
             }
         }
     }
 
     filterCards()
-
-    limit += 4
+    cardCount += 4
     
-    displayCards = [...displayCards, ...requestedCards]
+    displayCards = [ ...requestedCards]
 
     for(let i = 0; i < displayCards.length; i++){
         let img = document.createElement('img')
@@ -68,11 +83,10 @@ const renderCards = (search, rarity, cost, attack, health) => {
 
 }
 
-
+//fetch data from my api -> hearthstone 3rd party api and put them into cards object and calling render function
 fetch('http://localhost:5555/carddata').then(response => {
     response.json().then(body => {
          cards = body
-         console.log(cards)
          renderCards()
     })
 }).catch(err => {
