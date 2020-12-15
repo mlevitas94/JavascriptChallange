@@ -1,10 +1,5 @@
 //left side input event listeners for changing html and search filter values
 document.querySelectorAll(".inputSection input").forEach(input => {
-    if (input.type === 'range') {
-        input.addEventListener('change', (e) => {
-            document.querySelector(`.${e.target.id}`).innerHTML = e.target.value === '10' ? '10+' : e.target.value
-        })
-    }
 })
 
 //object for cards from api, array diplaying filtered cards/ numbers for limiting the amount, and filter values
@@ -34,7 +29,7 @@ const renderCards = (loadMore, search, rarity, cost, attack, health) => {
 
     const cardScroll = document.querySelector('.cardScroll')
 
-    if(!loadMore){
+    if (!loadMore) {
         cardCount = 0
     }
 
@@ -44,31 +39,31 @@ const renderCards = (loadMore, search, rarity, cost, attack, health) => {
             if (set === 'Hero Skins' || cards[set].length === 0) {
                 continue
             }
-            for(let i = 0; i < cards[set].length ; i++){
-                if(cards[set][i]?.type === "Hero"){
+            for (let i = 0; i < cards[set].length; i++) {
+                if (cards[set][i]?.type === "Hero") {
                     continue
                 }
-                if(tempCardCount !== 0){
+                if (tempCardCount !== 0) {
                     tempCardCount--
                     continue
                 }
 
-                if(limit === 4 ){
+                if (limit === 4) {
                     return
                 }
 
                 requestedCards.push(cards[set][i])
-                limit ++ 
+                limit++
             }
         }
     }
 
     filterCards()
     cardCount += 4
-    
-    displayCards = [ ...requestedCards]
 
-    for(let i = 0; i < displayCards.length; i++){
+    displayCards = [...requestedCards]
+
+    for (let i = 0; i < displayCards.length; i++) {
         let img = document.createElement('img')
         img.setAttribute('src', displayCards[i].img)
 
@@ -79,17 +74,18 @@ const renderCards = (loadMore, search, rarity, cost, attack, health) => {
 
     }
 
-    
+
 
 }
 
 //fetch data from my api -> hearthstone 3rd party api and put them into cards object and calling render function
-fetch('http://localhost:5555/carddata').then(response => {
-    response.json().then(body => {
-         cards = body
-         renderCards()
-    })
-}).catch(err => {
-    console.error(err);
-});
+// fetch('http://localhost:5555/carddata').then(response => {
+//     response.json().then(body => {
+//         cards = body
+//         document.querySelector('.loadingModal').style.display = 'none'
+//         renderCards()
+//     })
+// }).catch(err => {
+//     console.error(err);
+// });
 

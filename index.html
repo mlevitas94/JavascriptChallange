@@ -124,14 +124,14 @@
                 <div class="left">
                     <div class="newInput">
                         <label>New Item</label>
-                        <input type="text"/>
+                        <input type="text" />
                         <button>Add</button>
                     </div>
 
                     <span>Group 1</span>
                     <div class="itemGroup groupOne">
                         <div class="inner">
-                            
+
                         </div>
                         <div class="outer">
 
@@ -144,7 +144,7 @@
                     <span>Group 2</span>
                     <div class="itemGroup groupTwo">
                         <div class="inner">
-                            
+
                         </div>
                         <div class="outer">
 
@@ -154,6 +154,15 @@
             </div>
         </div>
         <div class="projectSection hearthCont">
+            <!-- <div class="loadingModal">
+                <div class="spinner">
+                    <div class="cube1"></div>
+                    <div class="cube2"></div>
+                </div>
+
+                <span>Loading assets...</span>
+
+            </div> -->
             <div class="inputSide">
                 <div class="inputSection">
                     <span>Search</span>
@@ -162,35 +171,80 @@
                 <div class="inputSection">
                     <span>Rarity</span>
                     <div class="rarityCont">
-                        <input type="checkbox" name="rarity" id="free">
-                        <input type="checkbox" name="rarity" id="common">
-                        <input type="checkbox" name="rarity" id="rare">
-                        <input type="checkbox" name="rarity" id="epic">
-                        <input type="checkbox" name="rarity" id="legendary">
-                        <label for="free" class="free"></label>
-                        <label for="common" class="common"></label>
-                        <label for="rare" class="rare"></label>
-                        <label for="epic" class="epic"></label>
-                        <label for="legendary" class="legendary"></label>
+                        <div>
+                            <input type="checkbox" name="rarity" id="free">
+                            <label for="free" class="free"></label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="rarity" id="common">
+                            <label for="common" class="common"></label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="rarity" id="rare">
+                            <label for="rare" class="rare"></label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="rarity" id="epic">
+                            <label for="epic" class="epic"></label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="rarity" id="legendary">
+                            <label for="legendary" class="legendary"></label>
+
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="inputSection">
                     <span>Cost</span>
-                    <input type="range" value="0" id="cost" name="cost"
-                    min="0" max="10">
-                    <label for="cost" class="cost">0</label>
+                    <select name="cost" id="cost">
+                        <option value="null">N/A</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10+</option>
+                    </select>
                 </div>
                 <div class="inputSection">
                     <span>Attack</span>
-                    <input type="range" value="0" id="attack" name="attack"
-                    min="0" max="10">
-                    <label for="attack" class="attack">0</label>
+                    <select name="attack" id="attack">
+                        <option value="null">N/A</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10+</option>
+                    </select>
                 </div>
                 <div class="inputSection">
                     <span>Health</span>
-                    <input type="range" value="0" id="health" name="health"
-                    min="0" max="10">
-                    <label for="health" class="health">0</label>
+                    <select name="health" id="health">
+                        <option value="null">N/A</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10+</option>
+                    </select>
                 </div>
             </div>
             <div class="cardSide">
