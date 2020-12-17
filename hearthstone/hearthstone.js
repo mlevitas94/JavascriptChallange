@@ -1,91 +1,100 @@
-//left side input event listeners for changing html and search filter values
-document.querySelectorAll(".inputSection input").forEach(input => {
-})
-
-//object for cards from api, array diplaying filtered cards/ numbers for limiting the amount, and filter values
 
 let cards = {}
-
 let displayCards = []
-
-let cardCount = 0
-
-let search = null
-
 let rarity = null
-
-let cost = null
-
-let attack = null
-
-let health = null
-
-
-//render card function will render upon page refresh and load more, still storing prevously rendered cards based on loadMore param
-const renderCards = (loadMore, search, rarity, cost, attack, health) => {
-    let limit = 0
-    let requestedCards = []
-    let tempCardCount = cardCount
-
-    const cardScroll = document.querySelector('.cardScroll')
-
-    if (!loadMore) {
-        cardCount = 0
+let currentCards = 0
+document.querySelectorAll(".inputSection input, .inputSection select").forEach(input => {
+    if (input.type === 'radio') {
+        input.addEventListener('click', (e) => {
+            if (e.target.value === rarity) {
+                input.checked = false
+                rarity = null
+            } else {
+                rarity = e.target.value
+            }
+        })
     }
 
-    //compre carcount and temp card count down here for load more potential
+})
+const renderCards = (loadMore) => {
+    const cardScroll = document.querySelector('.cardScroll')
+
+
     const filterCards = () => {
+        if (!loadMore) { 
+            currentCards = 0 
+            document.querySelectorAll('.cardScroll img').forEach(img => {
+                img.remove()
+            })
+        }
+        let tempCurrentCards = currentCards
+        let searchQueries = {
+            search: !document.querySelector('#search').value ? null : document.querySelector('#search').value,
+            cost: document.querySelector('select[name="cost"]').value,
+            attack: document.querySelector('select[name="attack"]').value,
+            health: document.querySelector('select[name="health"]').value,
+            rarity: rarity
+        }
+        for (const query in searchQueries) {
+            if (searchQueries[query] === null || searchQueries[query] === 'null') {
+                delete searchQueries[query]
+            } else if (query === 'cost' || query === 'attack' || query === 'health') {
+                searchQueries[query] = parseInt(searchQueries[query], 10)
+            }
+        }
+        let filteredCards = []
+        let limit = 0
+
         for (const set in cards) {
+            if (limit === 4) {
+                break
+            }
             if (set === 'Hero Skins' || cards[set].length === 0) {
                 continue
             }
-            for (let i = 0; i < cards[set].length; i++) {
-                if (cards[set][i]?.type === "Hero") {
-                    continue
-                }
-                if (tempCardCount !== 0) {
-                    tempCardCount--
-                    continue
-                }
+            filteredCards = [...filteredCards, ...cards[set].filter(card => {
+                if (limit !== 4 && card.type !== 'Hero') {
+                    queryPass = 0
+                    for (query in searchQueries) {
+                        if (searchQueries[query] === card[query]) {
+                            queryPass++
+                        }
+                    }
+                    if (queryPass === Object.keys(searchQueries).length) {
+                        if (tempCurrentCards > 0) {
+                            tempCurrentCards--
+                            return false
+                        } else {
+                            limit++
+                            return true
+                        }
+                    }
 
-                if (limit === 4) {
-                    return
                 }
-
-                requestedCards.push(cards[set][i])
-                limit++
-            }
+            })]
         }
+        return filteredCards
     }
+    console.log(currentCards)
+    currentCards += 4
+    console.log(currentCards)
 
-    filterCards()
-    cardCount += 4
-
-    displayCards = [...requestedCards]
-
-    for (let i = 0; i < displayCards.length; i++) {
+    filterCards().forEach(card => {
         let img = document.createElement('img')
-        img.setAttribute('src', displayCards[i].img)
-
-
+        img.setAttribute('src', card.img)
         cardScroll.append(img)
-
-
-
-    }
-
-
-
+    })
+    displayCards.splice()
 }
 
-//fetch data from my api -> hearthstone 3rd party api and put them into cards object and calling render function
-// fetch('http://localhost:5555/carddata').then(response => {
-//     response.json().then(body => {
-//         cards = body
-//         document.querySelector('.loadingModal').style.display = 'none'
-//         renderCards()
-//     })
-// }).catch(err => {
-//     console.error(err);
-// });
+fetch('http://localhost:5555/carddata').then(response => {
+    response.json().then(body => {
+        cards = body
+        console.log(cards)
+        // document.querySelector('.loadingModal').style.display = 'none'
+        renderCards(false)
+    })
+}).catch(err => {
+    console.error(err);
+});
 

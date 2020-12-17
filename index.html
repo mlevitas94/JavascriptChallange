@@ -172,23 +172,23 @@
                     <span>Rarity</span>
                     <div class="rarityCont">
                         <div>
-                            <input type="checkbox" name="rarity" id="free">
+                            <input type="radio" name="rarity" id="free" value="Free">
                             <label for="free" class="free"></label>
                         </div>
                         <div>
-                            <input type="checkbox" name="rarity" id="common">
+                            <input type="radio" name="rarity" id="common" value="Common">
                             <label for="common" class="common"></label>
                         </div>
                         <div>
-                            <input type="checkbox" name="rarity" id="rare">
+                            <input type="radio" name="rarity" id="rare" value="Rare">
                             <label for="rare" class="rare"></label>
                         </div>
                         <div>
-                            <input type="checkbox" name="rarity" id="epic">
+                            <input type="radio" name="rarity" id="epic" value="Epic">
                             <label for="epic" class="epic"></label>
                         </div>
                         <div>
-                            <input type="checkbox" name="rarity" id="legendary">
+                            <input type="radio" name="rarity" id="legendary" value="Legendary">
                             <label for="legendary" class="legendary"></label>
 
                         </div>
@@ -246,6 +246,7 @@
                         <option value="10">10+</option>
                     </select>
                 </div>
+                <button onclick="renderCards(false)">Search</button>
             </div>
             <div class="cardSide">
                 <div class="cardScroll"></div>
@@ -258,7 +259,6 @@
     <script src="./calculator/calculator.js"></script>
     <script src="./draganddrop/draganddrop.js"></script>
     <script src="./hearthstone/hearthstone.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 </html>
