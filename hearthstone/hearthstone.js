@@ -18,8 +18,8 @@ document.querySelectorAll(".inputSection input, .inputSection select").forEach(i
 const renderCards = (loadMore) => {
     const cardScroll = document.querySelector('.cardScroll')
     const filterCards = () => {
-        if (!loadMore) { 
-            currentCards = 0 
+        if (!loadMore) {
+            currentCards = 0
             document.querySelectorAll('.cardScroll img').forEach(img => {
                 img.remove()
             })
@@ -48,21 +48,26 @@ const renderCards = (loadMore) => {
             if (set === 'Hero Skins' || cards[set].length === 0) {
                 continue
             }
-            for(let i = 0 ; i < cards[set].length; i++){
-                if(limit === 4){break}
+            for (let i = 0; i < cards[set].length; i++) {
+                if (limit === 4) { break }
                 if (cards[set][i].type !== 'Hero') {
                     queryPass = 0
                     for (query in searchQueries) {
-                        if(query === 'search'){
+                        if (query === 'search') {
                             console.log(cards[set][i].name)
-                            if(cards[set][i].name?.toUpperCase().includes(searchQueries[query].toUpperCase()) || 
-                            cards[set][i].text?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
-                            cards[set][i].race?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
-                            cards[set][i].type?.toUpperCase().includes(searchQueries[query].toUpperCase()) ){
+                            if (cards[set][i].name?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
+                                cards[set][i].text?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
+                                cards[set][i].race?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
+                                cards[set][i].type?.toUpperCase().includes(searchQueries[query].toUpperCase())) {
                                 queryPass++
                             }
-                        }
-                        if (searchQueries[query] === cards[set][i][query]) {
+                        } else if (searchQueries[query] === 10) {
+                            if (cards[set][i][query] >= 10) {
+                                queryPass++
+                            }
+
+
+                        } else if (searchQueries[query] === cards[set][i][query]) {
                             queryPass++
                         }
                     }
@@ -72,7 +77,7 @@ const renderCards = (loadMore) => {
                             continue
                         }
                         filteredCards.push(cards[set][i])
-                        limit ++
+                        limit++
                     }
                 }
             }
