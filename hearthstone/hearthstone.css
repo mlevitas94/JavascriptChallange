@@ -1,5 +1,17 @@
 .hearthCont {
     display: flex;
+    background-image: url('./assets/backgroundpaper.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.hearthCont button {
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    padding: 5px 10px;
+    color: #683f2b;
+    border-radius: 5px;
+    outline: none;
 }
 .loadingModal{
     position: absolute;
@@ -22,27 +34,42 @@
 }
 .inputSide {
     width: 30%;
-    background-color: red;
+    background-color: #0000008a;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
-.inputSide button{
-    display: block;
-    margin: 15px auto;
+.buttonsBottom{
+    display: flex;
+    justify-content: space-around;
+}
+.buttonsBottom button{
+    margin: 25px auto;
+}
+.buttonsBottom button:nth-child(2){
+    background: #525252;
+    color: white;
 }
 
 .inputSection {
-    margin: 33px 11px 0 11px;
+    margin: 22px 11px 0 11px;
 }
 
 .inputSection span {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #989898;
     padding-bottom: 11px;
     display: block;
+    color: white;
 }
 
 .inputSection input, .inputSection select {
     margin-top: 11px;
     width: 100%;
+    font-size: 10px;
+    padding: 5px;
+    background-color: #ffffff3d;
+    color: white;
+    border-radius: 6px;
 }
 
 
@@ -93,14 +120,13 @@
 
 .cardSide {
     width: 70%;
-    background-color: blue;
     overflow: scroll;
 
 }
 
 .cardSide button{
-    display: block;
-    margin: 66px auto 22px auto;
+    display: none;
+    margin: 44px auto 22px auto;
 
 }
 

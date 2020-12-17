@@ -154,7 +154,7 @@
             </div>
         </div>
         <div class="projectSection hearthCont">
-            <!-- <div class="loadingModal">
+            <div class="loadingModal">
                 <div class="spinner">
                     <div class="cube1"></div>
                     <div class="cube2"></div>
@@ -162,7 +162,7 @@
 
                 <span>Loading assets...</span>
 
-            </div> -->
+            </div>
             <div class="inputSide">
                 <div class="inputSection">
                     <span>Search</span>
@@ -246,7 +246,10 @@
                         <option value="10">10+</option>
                     </select>
                 </div>
-                <button onclick="renderCards(false)">Search</button>
+                <div class="buttonsBottom">
+                    <button onclick="renderCards(false)">Search</button>
+                    <button onclick="clearSearch()">Clear</button>
+                </div>
             </div>
             <div class="cardSide">
                 <div class="cardScroll"></div>

@@ -3,9 +3,28 @@ let cards = {}
 let displayCards = []
 let rarity = null
 let currentCards = 0
+const removeDOMCards = () => {
+    document.querySelectorAll('.cardScroll img').forEach(img => {
+        img.remove()
+    })
+}
+const clearSearch = () => {
+    removeDOMCards()
+    document.querySelector('#search').value = ''
+    document.querySelector('select[name="cost"]').value = 'null'
+    document.querySelector('select[name="attack"]').value = 'null'
+    document.querySelector('select[name="health"]').value = 'null'
+    rarity = null
+    document.querySelector('.cardSide button').style.display = 'none'
+    document.querySelectorAll('.inputSection input[type="radio"]').forEach(input => {
+        input.checked = false
+    })
+}
 document.querySelectorAll(".inputSection input, .inputSection select").forEach(input => {
     if (input.type === 'radio') {
         input.addEventListener('click', (e) => {
+            removeDOMCards()
+            document.querySelector('.cardSide button').style.display = 'none'
             if (e.target.value === rarity) {
                 input.checked = false
                 rarity = null
@@ -14,15 +33,18 @@ document.querySelectorAll(".inputSection input, .inputSection select").forEach(i
             }
         })
     }
+    input.addEventListener('change', (e) => {
+        removeDOMCards()
+        document.querySelector('.cardSide button').style.display = 'none'
+    })
 })
 const renderCards = (loadMore) => {
     const cardScroll = document.querySelector('.cardScroll')
+    document.querySelector('.cardSide button').style.display = 'block'
     const filterCards = () => {
         if (!loadMore) {
             currentCards = 0
-            document.querySelectorAll('.cardScroll img').forEach(img => {
-                img.remove()
-            })
+            removeDOMCards()
         }
         let tempCurrentCards = currentCards
         let searchQueries = {
@@ -54,7 +76,6 @@ const renderCards = (loadMore) => {
                     queryPass = 0
                     for (query in searchQueries) {
                         if (query === 'search') {
-                            console.log(cards[set][i].name)
                             if (cards[set][i].name?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
                                 cards[set][i].text?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
                                 cards[set][i].race?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
@@ -84,10 +105,7 @@ const renderCards = (loadMore) => {
         }
         return filteredCards
     }
-    console.log(currentCards)
     currentCards += 4
-    console.log(currentCards)
-
     filterCards().forEach(card => {
         let img = document.createElement('img')
         img.setAttribute('src', card.img)
@@ -99,7 +117,7 @@ fetch('http://localhost:5555/carddata').then(response => {
     response.json().then(body => {
         cards = body
         console.log(cards)
-        // document.querySelector('.loadingModal').style.display = 'none'
+        document.querySelector('.loadingModal').style.display = 'none'
         renderCards(false)
     })
 }).catch(err => {
