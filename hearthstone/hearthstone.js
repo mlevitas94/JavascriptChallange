@@ -14,12 +14,9 @@ document.querySelectorAll(".inputSection input, .inputSection select").forEach(i
             }
         })
     }
-
 })
 const renderCards = (loadMore) => {
     const cardScroll = document.querySelector('.cardScroll')
-
-
     const filterCards = () => {
         if (!loadMore) { 
             currentCards = 0 
@@ -44,7 +41,6 @@ const renderCards = (loadMore) => {
         }
         let filteredCards = []
         let limit = 0
-
         for (const set in cards) {
             if (limit === 4) {
                 break
@@ -52,26 +48,34 @@ const renderCards = (loadMore) => {
             if (set === 'Hero Skins' || cards[set].length === 0) {
                 continue
             }
-            filteredCards = [...filteredCards, ...cards[set].filter(card => {
-                if (limit !== 4 && card.type !== 'Hero') {
+            for(let i = 0 ; i < cards[set].length; i++){
+                if(limit === 4){break}
+                if (cards[set][i].type !== 'Hero') {
                     queryPass = 0
                     for (query in searchQueries) {
-                        if (searchQueries[query] === card[query]) {
+                        if(query === 'search'){
+                            console.log(cards[set][i].name)
+                            if(cards[set][i].name?.toUpperCase().includes(searchQueries[query].toUpperCase()) || 
+                            cards[set][i].text?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
+                            cards[set][i].race?.toUpperCase().includes(searchQueries[query].toUpperCase()) ||
+                            cards[set][i].type?.toUpperCase().includes(searchQueries[query].toUpperCase()) ){
+                                queryPass++
+                            }
+                        }
+                        if (searchQueries[query] === cards[set][i][query]) {
                             queryPass++
                         }
                     }
                     if (queryPass === Object.keys(searchQueries).length) {
                         if (tempCurrentCards > 0) {
                             tempCurrentCards--
-                            return false
-                        } else {
-                            limit++
-                            return true
+                            continue
                         }
+                        filteredCards.push(cards[set][i])
+                        limit ++
                     }
-
                 }
-            })]
+            }
         }
         return filteredCards
     }
@@ -86,7 +90,6 @@ const renderCards = (loadMore) => {
     })
     displayCards.splice()
 }
-
 fetch('http://localhost:5555/carddata').then(response => {
     response.json().then(body => {
         cards = body
