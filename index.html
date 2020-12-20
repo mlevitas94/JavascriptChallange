@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./calculator/calculator.css" />
     <link rel="stylesheet" href="./draganddrop/draganddrop.css" />
     <link rel="stylesheet" href="./hearthstone/hearthstone.css" />
+    <link rel="stylesheet" href="./ticTacToe/ticTacToe.css" />
     <link rel="stylesheet" href="./reset.css" />
 </head>
 
@@ -192,7 +193,7 @@
                             <label for="legendary" class="legendary"></label>
 
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="inputSection">
@@ -257,7 +258,43 @@
             </div>
         </div>
         <div class="projectSection ticTacCont">
-            
+            <div class="turnCounter"></div>
+            <div class="gameType">
+                <p>Select your game type</p>
+                <div>
+                    <button onclick="initializeGame('local')">Local</button>
+                    <button>Online</button>
+                </div>
+            </div>
+            <div class="gameCont">
+                <div class="box box1" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box2" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box3" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box4" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box5" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box6" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box7" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box8" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+                <div class="box box9" onclick="nextTurn(this)">
+                    <span></span>
+                </div>
+            </div>
         </div>
     </div>
     <script src="./purplerain/purpleRain.js"></script>
@@ -265,6 +302,7 @@
     <script src="./calculator/calculator.js"></script>
     <script src="./draganddrop/draganddrop.js"></script>
     <script src="./hearthstone/hearthstone.js"></script>
+    <script src="./ticTacToe/ticTacToe.js"></script>
 </body>
 
 </html>

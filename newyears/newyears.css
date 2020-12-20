@@ -84,12 +84,14 @@
 .flipCont{
     position: absolute;
     display: block;
-    width: calc( 100% - 1px);
     height: 100%;
     transform-style: preserve-3d;
     transform-origin: bottom;
     transition: transform 0.3s linear;
+    will-change: transform;
     z-index: 30;
+    left: 0;
+    right: 1px;
 
 
 }
@@ -101,6 +103,9 @@
     width: calc(100%);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    /* work from here  */
 }
 
 .flipFront{
@@ -122,7 +127,7 @@
     backface-visibility: hidden;
     overflow: hidden;
     position: absolute;
-    left: 1px;
+    left: 0;
     right: 0;
     top: 50%;
     

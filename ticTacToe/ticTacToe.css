@@ -1,0 +1,81 @@
+.ticTacCont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.gameCont{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.turnCounter{
+    position: absolute;
+    top: 22px;
+}
+
+.gameType{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fdfdfdeb;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.gameType div{
+    margin: 22px 0;
+}
+
+.gameType button{
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    background-color: #5a5a5aeb;
+    color: white;
+    border-radius: 10px;
+    margin: 0 11px;
+}
+
+.gameType button:hover{
+    cursor: pointer;
+}
+
+ .box{
+ width: 33.3%;
+ border: 1px solid black;
+ height: 33.3%;
+ border-right: none;
+ border-top: none;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ font-size: 30px;
+}
+
+.box span{
+    display: none;
+    color: #dcdcdc;
+}
+.box:hover > span{
+    display: flex !important;
+    cursor: pointer;
+
+}
+.box:hover{
+    cursor: pointer;
+}
+
+.box1, .box4, .box7{
+    border-left: none;
+}
+.box7, .box8, .box9{
+    border-bottom: none;
+}
