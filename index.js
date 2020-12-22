@@ -2,10 +2,18 @@ require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
 const cors = require('cors')
+const app = express();
+var http = require('http').createServer(app)
+const io = require('socket.io')(http, {
+    cors: {
+      origin: '*',
+      methods: ["GET", "POST"]
+    }
+  });
+
+
 
 const { SERVER_PORT, API_KEY, API_HOST } = process.env
-
-const app = express();
 
 app.get('/carddata', cors(), (req, res) => {
     const options = {
@@ -30,5 +38,9 @@ app.get('/carddata', cors(), (req, res) => {
 
 })
 
-app.listen(SERVER_PORT, () => console.log(`Now arriving at ${SERVER_PORT}`));
+io.on('connection', (socket) => {
+    console.log('something connected', socket);
+  });
+
+http.listen(SERVER_PORT, () => console.log(`Now arriving at ${SERVER_PORT}`));
 

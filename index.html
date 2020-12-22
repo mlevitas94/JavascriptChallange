@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./hearthstone/hearthstone.css" />
     <link rel="stylesheet" href="./ticTacToe/ticTacToe.css" />
     <link rel="stylesheet" href="./reset.css" />
+    <script></script>
 </head>
 
 <body>
@@ -262,8 +263,8 @@
             <div class="gameType">
                 <p>Select your game type</p>
                 <div>
-                    <button onclick="initializeGame('local')">Local</button>
-                    <button>Online</button>
+                    <button onclick="initializeGame(false)">Local</button>
+                    <button onclick="initializeGame(true)">Online</button>
                 </div>
             </div>
             <div class="gameCont">
@@ -297,6 +298,7 @@
             </div>
         </div>
     </div>
+    <script src="./node_modules/socket.io/client-dist/socket.io.js"></script>
     <script src="./purplerain/purpleRain.js"></script>
     <script src="./newyears/newyears.js"></script>
     <script src="./calculator/calculator.js"></script>

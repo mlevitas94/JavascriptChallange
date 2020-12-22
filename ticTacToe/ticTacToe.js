@@ -1,13 +1,20 @@
 
 const preModal = document.querySelector('.gameType');
 const turnCounter = document.querySelector('.turnCounter')
+let socket;
 
 let grid = [null, null, null, null, null, null, null, null, null]
 let turn = null
 
-const initializeGame = (type) => {
-    grid = [null, null, null, null, null, null, null, null, null]
-    if (type === 'local') {
+const initializeGame = (online) => {
+    if (online) {
+        preModal.innerHTML = "<p>Create or join a room?</p><div><button onclick='createRoom()'>Create Room</button><button onclick='joinRoom()'>Join Room</button></div>"
+
+        // socket = io('http://localhost:5555')
+
+
+    }else{
+        grid = [null, null, null, null, null, null, null, null, null]
         preModal.style.display = 'none'
         if(Math.floor(Math.random() * 2) === 0){
             turn = 'O'

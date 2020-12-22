@@ -116,7 +116,6 @@ const renderCards = (loadMore) => {
 fetch('http://localhost:5555/carddata').then(response => {
     response.json().then(body => {
         cards = body
-        console.log(cards)
         document.querySelector('.loadingModal').style.display = 'none'
         renderCards(false)
     })
