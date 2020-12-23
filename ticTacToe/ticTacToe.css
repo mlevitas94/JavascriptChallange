@@ -34,6 +34,11 @@
     margin: 22px 0;
 }
 
+.gameType input{
+    border: 1px solid grey;
+    width: 100px;
+}
+
 .gameType button{
     border: none;
     outline: none;
