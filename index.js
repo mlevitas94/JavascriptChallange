@@ -77,6 +77,14 @@ io.on('connection', (socket) => {
       
     })
 
+    socket.on('initialize', res => {
+      if(Math.floor(Math.random() * 2) === 0){
+        res({turn:true})
+      }else{
+        //other person in room turn is first
+      }
+    })
+
   });
 
 http.listen(SERVER_PORT, () => console.log(`Now arriving at ${SERVER_PORT}`));

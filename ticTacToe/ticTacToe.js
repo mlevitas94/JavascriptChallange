@@ -23,6 +23,11 @@ const initializeGame = (online) => {
         span.style.color = '#dcdcdc'
         span.innerHTML = turn
     })
+    if(online){
+        socket.emit('initialize', res => {
+            
+        })
+    }
 
 }
 
@@ -107,7 +112,6 @@ const joinRoom = async () => {
         socket.emit('joinroom', typedNumber, res => {
             console.log(res.join)
             if (!res.join) {
-                socket.disconnect()
                 return modalChange('error', 'Room doesnt exist or is full.')
             }
             initializeGame()
@@ -142,6 +146,7 @@ const modalChange = (changeTo, data) => {
             break;
         case 'error':
             preModal.innerHTML = `<p>${data}</p> <br/> <button onclick="modalChange('cancel')">Back</button>`
+            socket.disconnect()
             break;
         default:
         // code block
