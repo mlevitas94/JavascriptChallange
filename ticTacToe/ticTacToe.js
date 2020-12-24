@@ -82,6 +82,10 @@ const createRoom = async () => {
         return modalChange('error')
     }
 
+    socket.on('someonejoined', () => {
+        initializeGame()
+    })
+
     socket.emit('createroom', res => {
         modalChange('waiting', res.newRoom)
     })
@@ -93,14 +97,25 @@ const joinRoom = async () => {
         socket = await io('http://localhost:5555')
     } catch (err) {
         console.log(err)
-        return modalChange('error')
+        return modalChange('error', 'Could not connect to online match.')
     }
     const typedNumber = document.querySelector(".gameType input[type='text'").value
-    
 
-    socket.emit('joinroom', typedNumber, res => {
+    modalChange('joining')
 
-    })
+    try {
+        socket.emit('joinroom', typedNumber, res => {
+            console.log(res.join)
+            if (!res.join) {
+                socket.disconnect()
+                return modalChange('error', 'Room doesnt exist or is full.')
+            }
+            initializeGame()
+        })
+    } catch (err) {
+
+        modalChange('error', 'Something went wrong with the online connection')
+    }
 
 }
 
@@ -113,7 +128,7 @@ const modalChange = (changeTo, data) => {
             preModal.innerHTML = `<p>Create or join a room?</p><div><button onclick="modalChange('create')">Create Room</button><button onclick="modalChange('join')">Join Room</button><button onclick="modalChange('cancel')">Cancel</button></div>`
             break;
         case 'join':
-            preModal.innerHTML = `<p>Please enter the room number you wish to join</p><div><input type='text' name='join' id='join'><button onclick="joinRoom()">Join</button><button onclick="modalChange('cancel')">Cancel</button></div>`
+            preModal.innerHTML = `<p>Please enter the room number you wish to join</p><div><input maxLength='3' type='text' name='join' id='join'><button onclick="joinRoom()">Join</button><button onclick="modalChange('cancel')">Cancel</button></div>`
             break;
         case 'create':
             preModal.innerHTML = '<p>Creating Room...</p>';
@@ -122,8 +137,11 @@ const modalChange = (changeTo, data) => {
         case 'waiting':
             preModal.innerHTML = `<p>The room number is : ${data}</p><br/><br/><p>Waiting for player 2 to join...</p>`
             break;
+        case 'Joining':
+            preModal.innerHTML = `<p>Joining room...</p>`
+            break;
         case 'error':
-            preModal.innerHTML = `<p>error</p>`
+            preModal.innerHTML = `<p>${data}</p> <br/> <button onclick="modalChange('cancel')">Back</button>`
             break;
         default:
         // code block

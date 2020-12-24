@@ -46,17 +46,35 @@ io.on('connection', (socket) => {
     })
 
     socket.on('createroom', (res) => {
-      const newRoom = Math.floor(Math.random() * 500)
-
+      let newRoom;
+      for(let i = 1; i <= 501; i++){
+        if(i === 501){
+          return res({full: true})
+        }
+        if(!io.sockets.adapter.rooms.get(`room-${i}`)){
+          newRoom = i
+          break
+        }
+      }
       socket.join(`room-${newRoom}`);
-      
       res({newRoom: newRoom})
-      console.log(io.sockets.adapter.rooms)
     })
 
-    socket.on('joinroom', (room, sendBack) => {
-      console.log(`room-${room}`)
-        console.log(io.sockets.adapter.rooms.get(`room-${room}`))
+    socket.on('joinroom', (room, res) => {
+      if(!io.sockets.adapter.rooms.get(`room-${room}`) || io.sockets.adapter.rooms.get(`room-${room}`).size >= 2){
+
+        return res({join: false})
+      }
+      socket.join(`room-${room}`)
+
+      try{
+        socket.to(`room-${room}`).emit('someonejoined')
+        res({join: true})
+      }catch(err){
+
+      }
+
+      
     })
 
   });
