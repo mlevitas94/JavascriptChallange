@@ -39,7 +39,26 @@ app.get('/carddata', cors(), (req, res) => {
 })
 
 io.on('connection', (socket) => {
-    console.log('something connected', socket);
+    console.log('something connected');
+
+    socket.on('disconnect', () => {
+      console.log('disconnected')
+    })
+
+    socket.on('createroom', (res) => {
+      const newRoom = Math.floor(Math.random() * 500)
+
+      socket.join(`room-${newRoom}`);
+      
+      res({newRoom: newRoom})
+      console.log(io.sockets.adapter.rooms)
+    })
+
+    socket.on('joinroom', (room, sendBack) => {
+      console.log(`room-${room}`)
+        console.log(io.sockets.adapter.rooms.get(`room-${room}`))
+    })
+
   });
 
 http.listen(SERVER_PORT, () => console.log(`Now arriving at ${SERVER_PORT}`));
