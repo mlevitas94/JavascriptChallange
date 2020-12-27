@@ -71,18 +71,17 @@ io.on('connection', (socket) => {
         socket.to(`room-${room}`).emit('someonejoined')
         res({join: true})
       }catch(err){
-
+        console.log(err)
       }
 
       
     })
 
     socket.on('initialize', res => {
-      if(Math.floor(Math.random() * 2) === 0){
-        res({turn:true})
-      }else{
-        //other person in room turn is first
-      }
+      //check if one has turn ID first. if so, asign other one opposite. If no turn ID assigned to anyone, assign one to both
+        if(!socket.turnId){
+
+        }
     })
 
   });

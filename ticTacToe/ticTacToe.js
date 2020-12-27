@@ -88,7 +88,7 @@ const createRoom = async () => {
     }
 
     socket.on('someonejoined', () => {
-        initializeGame()
+        initializeGame(online)
     })
 
     socket.emit('createroom', res => {
@@ -114,7 +114,7 @@ const joinRoom = async () => {
             if (!res.join) {
                 return modalChange('error', 'Room doesnt exist or is full.')
             }
-            initializeGame()
+            initializeGame(online)
         })
     } catch (err) {
 
