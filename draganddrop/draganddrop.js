@@ -2,15 +2,10 @@ let groups = {
     groupOne: [],
     groupTwo: []
 }
-
 const groupOneInner = document.querySelector('.groupOne .inner')
 const groupTwoInner = document.querySelector('.groupTwo .inner')
-
 let uniqueItem = 0
-
-
 //function to render group lists based on "groups" object
-
 const renderGroups = () => {
     document.querySelectorAll('.item').forEach(item => {
         item.remove()
@@ -88,10 +83,6 @@ document.querySelector('.projectCont').addEventListener('mouseup', (e) => {
 
     }
 })
-
-
-
-
 //mouse position function for placing dragged item where mouse is
 const getMousePosition = (group, e) => {
     let rect = group.getBoundingClientRect();
@@ -99,7 +90,6 @@ const getMousePosition = (group, e) => {
     let y = e.clientY - rect.top;
     return [x, y]
 }
-
 //calculation if grabbed item is up to make it move with the mouse
 document.querySelector('.dragAndDrop').addEventListener('mousemove', (e) => {
     const draggedItem = document.querySelector('.itemOnMouse')
@@ -109,10 +99,7 @@ document.querySelector('.dragAndDrop').addEventListener('mousemove', (e) => {
 
     }
 })
-
-
 //this takes the input value and places it in group 1. validates, and clears upon pressing the add button. makes the new item dragable
-
 //also adds the click drag event to the new item
 document.querySelector('.newInput button').addEventListener('click', () => {
     const input = document.querySelector('.newInput input')

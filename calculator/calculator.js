@@ -1,18 +1,11 @@
 let result = 0
-
 let currentEq = ''
-
 let resultText = document.querySelector('.calculatorCont .finalResult')
-
 let currentEqText = document.querySelector('.calculatorCont .currentEq')
-
-
 const calculate = () => {
     return  Math.round(100000*eval(currentEq))/100000
 }
-
 document.querySelectorAll('.calculator .buttons span').forEach(button => {
-    
         button.addEventListener('click', () => {
             if(button.innerHTML === '='){
                 result = calculate()
@@ -32,16 +25,12 @@ document.querySelectorAll('.calculator .buttons span').forEach(button => {
                         return
                     }
                     currentEq += ` ${button.innerHTML} `
-        
                     currentEqText.innerHTML = currentEq
-    
                 }else{
                     currentEq += `${button.innerHTML}`
-        
                     currentEqText.innerHTML = currentEq
                 }
             }
         })
-
 })
 

@@ -6,27 +6,33 @@ let socket;
 let grid = [null, null, null, null, null, null, null, null, null]
 let turn = null
 
-
-
-const initializeGame = (online) => {
-
-    grid = [null, null, null, null, null, null, null, null, null]
-    preModal.style.display = 'none'
-    if (Math.floor(Math.random() * 2) === 0) {
-        turn = 'O'
-    } else {
-        turn = 'X'
-    }
-    turnCounter.innerHTML = `Turn : ${turn}`
-    document.querySelectorAll('.box span').forEach(span => {
-        span.style.display = 'none'
-        span.style.color = '#dcdcdc'
-        span.innerHTML = turn
-    })
-    if(online){
-        socket.emit('initialize', res => {
-            
+const initializeGame = (online, onlineTurn) => {
+    const baseInit = () => {
+        grid = [null, null, null, null, null, null, null, null, null]
+        if ((typeof onlineTurn === 'undefined' ? Math.floor(Math.random() * 2) : onlineTurn) === 0) {
+            turn = 'O'
+        } else {
+            turn = 'X'
+        }
+        document.querySelectorAll('.box span').forEach(span => {
+            span.style.display = 'none'
+            span.style.color = '#dcdcdc'
+            span.innerHTML = turn
         })
+    }
+    if (online) {
+        baseInit()
+        if (turn === 'O') {
+            modalChange('waitingturn', 'Waiting for X to go...')
+            turnCounter.innerHTML = `Turn : X`
+        }else{
+            preModal.style.display = 'none'
+            turnCounter.innerHTML = `Turn : ${turn}`
+        }
+    } else {
+        preModal.style.display = 'none'
+        turnCounter.innerHTML = `Turn : ${turn}`
+        baseInit()
     }
 
 }
@@ -63,7 +69,7 @@ const nextTurn = (ele) => {
 
     if (checkWin()) {
 
-        return initializeGame('local')
+        return initializeGame()
     }
 
     if (turn === 'X') {
@@ -87,11 +93,17 @@ const createRoom = async () => {
         return modalChange('error')
     }
 
-    socket.on('someonejoined', () => {
-        initializeGame(online)
+    socket.on('someonejoined', turn => {
+        initializeGame(true, turn)
     })
 
     socket.emit('createroom', res => {
+        if (res.full) {
+            return modalChange('error', 'The server is full.')
+        }
+        if (res.tooManyRooms) {
+            return modalChange('error', 'You can only be in one room at a time.')
+        }
         modalChange('waiting', res.newRoom)
     })
 
@@ -110,11 +122,10 @@ const joinRoom = async () => {
 
     try {
         socket.emit('joinroom', typedNumber, res => {
-            console.log(res.join)
             if (!res.join) {
                 return modalChange('error', 'Room doesnt exist or is full.')
             }
-            initializeGame(online)
+            initializeGame(true, res.turn)
         })
     } catch (err) {
 
@@ -144,11 +155,13 @@ const modalChange = (changeTo, data) => {
         case 'Joining':
             preModal.innerHTML = `<p>Joining room...</p>`
             break;
+        case 'waitingturn':
+            preModal.innerHTML = `<p>${data}</p>`
+            break;
         case 'error':
             preModal.innerHTML = `<p>${data}</p> <br/> <button onclick="modalChange('cancel')">Back</button>`
             socket.disconnect()
             break;
         default:
-        // code block
     }
 }

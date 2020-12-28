@@ -5,86 +5,83 @@ const cors = require('cors')
 const app = express();
 var http = require('http').createServer(app)
 const io = require('socket.io')(http, {
-    cors: {
-      origin: '*',
-      methods: ["GET", "POST"]
-    }
-  });
+  cors: {
+    origin: '*',
+    methods: ["GET", "POST"]
+  }
+});
 
 
 
 const { SERVER_PORT, API_KEY, API_HOST } = process.env
 
 app.get('/carddata', cors(), (req, res) => {
-    const options = {
-        method: 'GET',
-        url: 'https://omgvamp-hearthstone-v1.p.rapidapi.com/info',
-        headers: {
-            'x-rapidapi-key': API_KEY,
-            'x-rapidapi-host': API_HOST
-        }
-    };
-    axios.request(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards?collectible=1`, options).then(response => {
+  const options = {
+    method: 'GET',
+    url: 'https://omgvamp-hearthstone-v1.p.rapidapi.com/info',
+    headers: {
+      'x-rapidapi-key': API_KEY,
+      'x-rapidapi-host': API_HOST
+    }
+  };
+  axios.request(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards?collectible=1`, options).then(response => {
 
-        return res.status(200).send(response.data)
+    return res.status(200).send(response.data)
 
 
 
-    })
-        .catch(err => {
-            console.log(err)
-            return res.status(500).send('Server Error')
-        });
+  })
+    .catch(err => {
+      console.log(err)
+      return res.status(500).send('Server Error')
+    });
 
 })
 
 io.on('connection', (socket) => {
-    console.log('something connected');
+  console.log('something connected');
 
-    socket.on('disconnect', () => {
-      console.log('disconnected')
-    })
+  socket.on('disconnect', () => {
+    console.log('disconnected')
+  })
 
-    socket.on('createroom', (res) => {
-      let newRoom;
-      for(let i = 1; i <= 501; i++){
-        if(i === 501){
-          return res({full: true})
-        }
-        if(!io.sockets.adapter.rooms.get(`room-${i}`)){
-          newRoom = i
-          break
-        }
+  socket.on('createroom', (res) => {
+    if (socket.rooms.size > 2) {
+      return res({ tooManyRooms: true })
+    }
+    let newRoom;
+    for (let i = 1; i <= 501; i++) {
+      if (i === 501) {
+        return res({ full: true })
       }
-      socket.join(`room-${newRoom}`);
-      res({newRoom: newRoom})
-    })
-
-    socket.on('joinroom', (room, res) => {
-      if(!io.sockets.adapter.rooms.get(`room-${room}`) || io.sockets.adapter.rooms.get(`room-${room}`).size >= 2){
-
-        return res({join: false})
+      if (!io.sockets.adapter.rooms.get(`room-${i}`)) {
+        newRoom = i
+        break
       }
-      socket.join(`room-${room}`)
+    }
+    socket.join(`room-${newRoom}`);
+    res({ newRoom: newRoom })
+  })
 
-      try{
-        socket.to(`room-${room}`).emit('someonejoined')
-        res({join: true})
-      }catch(err){
-        console.log(err)
-      }
+  socket.on('joinroom', (room, res) => {
+    if (!io.sockets.adapter.rooms.get(`room-${room}`) || io.sockets.adapter.rooms.get(`room-${room}`).size >= 2) {
 
-      
-    })
+      return res({ join: false })
+    }
+    socket.join(`room-${room}`)
 
-    socket.on('initialize', res => {
-      //check if one has turn ID first. if so, asign other one opposite. If no turn ID assigned to anyone, assign one to both
-        if(!socket.turnId){
+    try {
+      const turn = Math.floor(Math.random() *2)
+      socket.to(`room-${room}`).emit('someonejoined', turn === 0 ? 1 : 0)
+      res({ join: true, turn: turn })
+    } catch (err) {
+      console.log(err)
+    }
 
-        }
-    })
 
-  });
+  })
+
+});
 
 http.listen(SERVER_PORT, () => console.log(`Now arriving at ${SERVER_PORT}`));
 
