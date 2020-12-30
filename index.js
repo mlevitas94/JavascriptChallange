@@ -40,6 +40,7 @@ app.get('/carddata', cors(), (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('something connected');
+  socket.leave(socket.id)
 
   socket.on('disconnect', () => {
     console.log('disconnected')
@@ -77,8 +78,12 @@ io.on('connection', (socket) => {
     } catch (err) {
       console.log(err)
     }
-
-
+  })
+  
+  socket.on('turntaken', (gridPlace) => {
+    socket.rooms.forEach(room => {
+      socket.to(room).emit('waitingturn', gridPlace)
+    })
   })
 
 });

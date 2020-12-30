@@ -2,6 +2,7 @@
 const preModal = document.querySelector('.gameType');
 const turnCounter = document.querySelector('.turnCounter')
 let socket;
+let setTurn
 
 let grid = [null, null, null, null, null, null, null, null, null]
 let turn = null
@@ -21,11 +22,23 @@ const initializeGame = (online, onlineTurn) => {
         })
     }
     if (online) {
+        try {
+            socket.on('waitingturn', res => {
+                console.log(res)
+                nextTurn(res)
+                if (setTurn !== turn) {
+                    modalChange('waitingturn', `Waiting for ${turn === 'X' ? 'O' : 'X'} to go...`)
+                }
+            })
+        } catch (err) {
+            return modalChange('error', 'Something went wrong with the server.')
+        }
         baseInit()
+        setTurn = turn
         if (turn === 'O') {
             modalChange('waitingturn', 'Waiting for X to go...')
             turnCounter.innerHTML = `Turn : X`
-        }else{
+        } else {
             preModal.style.display = 'none'
             turnCounter.innerHTML = `Turn : ${turn}`
         }
@@ -56,10 +69,23 @@ const checkWin = () => {
 }
 
 const nextTurn = (ele) => {
+    //when being called on the client listener, ele is a number, needs to be element for grid displays
     if (!turn) {
         return
     }
-    const gridPlace = ele.classList[1].split('box')[1] - 1
+    if (socket?.connected) {
+        try {
+            if (setTurn !== turn) {
+                console.log(setTurn, turn)
+                return
+            }
+            socket.emit('turntaken', ele.classList[1].split('box')[1] - 1)
+            
+        } catch (err) {
+            return modalChange('error', 'Something went wrong with the server.')
+        }
+    }
+    let gridPlace = ele.classList[1].split('box')[1] - 1 
     if (grid[gridPlace] !== null) {
         return
     }
@@ -90,7 +116,7 @@ const createRoom = async () => {
         socket = await io('http://localhost:5555')
     } catch (err) {
         console.log(err)
-        return modalChange('error')
+        return modalChange('error', 'Something went wrong with the server.')
     }
 
     socket.on('someonejoined', turn => {
@@ -129,12 +155,13 @@ const joinRoom = async () => {
         })
     } catch (err) {
 
-        modalChange('error', 'Something went wrong with the online connection')
+        return modalChange('error', 'Something went wrong with the online connection')
     }
 
 }
 
 const modalChange = (changeTo, data) => {
+    preModal.style.display = 'flex'
     switch (changeTo) {
         case 'cancel':
             preModal.innerHTML = `<p>Select your game type</p><div><button onclick="initializeGame()">Local</button><button onclick="modalChange('online')">Online</button></div>`
