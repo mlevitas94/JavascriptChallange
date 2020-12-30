@@ -23,14 +23,14 @@ const initializeGame = (online, onlineTurn) => {
     if (online) {
         try {
             socket.on('playerdisconnected', () => {
-                console.log('disconnected by other player')
                 modalChange('error', 'The other player has disconnected')
 
             })
             socket.on('waitingturn', res => {
-                console.log(res)
-                nextTurn(res)
+                nextTurn(document.querySelector(`.${res}`), false)
+                preModal.style.display = 'none'
                 if (setTurn !== turn) {
+                    console.log(setTurn, turn)
                     modalChange('waitingturn', `Waiting for ${turn === 'X' ? 'O' : 'X'} to go...`)
                 }
             })
@@ -42,7 +42,7 @@ const initializeGame = (online, onlineTurn) => {
         setTurn = turn
         if (turn === 'O') {
             modalChange('waitingturn', 'Waiting for X to go...')
-            turnCounter.innerHTML = `Turn : X`
+            turnCounter.innerHTML = `Turn : O`
         } else {
             preModal.style.display = 'none'
             turnCounter.innerHTML = `Turn : ${turn}`
@@ -73,7 +73,7 @@ const checkWin = () => {
     return result
 }
 
-const nextTurn = (ele) => {
+const nextTurn = (ele, sendTurn) => {
     //when being called on the client listener, ele is a number, needs to be element for grid displays
     if (!turn) {
         return
@@ -82,14 +82,13 @@ const nextTurn = (ele) => {
     if (socket?.connected) {
         try {
             if (setTurn !== turn) {
-                console.log(setTurn, turn)
                 return
             }
-            socket.emit('turntaken', ele.classList[1])
+            if(sendTurn){
+                socket.emit('turntaken', ele.classList[1])
+            }
             
         } catch (err) {
-            console.log(err)
-            console.log(preModal.style.display)
             return modalChange('error', 'Something went wrong with the server.')
         }
     }
@@ -169,9 +168,7 @@ const joinRoom = async () => {
 }
 
 const modalChange = (changeTo, data) => {
-    console.log(preModal.style.display)
     preModal.style.display = 'flex'
-    console.log(preModal.style.display)
     switch (changeTo) {
         case 'cancel':
             grid = [null, null, null, null, null, null, null, null, null]
