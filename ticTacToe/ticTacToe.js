@@ -3,7 +3,6 @@ const preModal = document.querySelector('.gameType');
 const turnCounter = document.querySelector('.turnCounter')
 let socket;
 let setTurn
-
 let grid = [null, null, null, null, null, null, null, null, null]
 let turn = null
 
@@ -23,6 +22,11 @@ const initializeGame = (online, onlineTurn) => {
     }
     if (online) {
         try {
+            socket.on('playerdisconnected', () => {
+                console.log('disconnected by other player')
+                modalChange('error', 'The other player has disconnected')
+
+            })
             socket.on('waitingturn', res => {
                 console.log(res)
                 nextTurn(res)
@@ -31,6 +35,7 @@ const initializeGame = (online, onlineTurn) => {
                 }
             })
         } catch (err) {
+            console.log(err)
             return modalChange('error', 'Something went wrong with the server.')
         }
         baseInit()
@@ -43,9 +48,9 @@ const initializeGame = (online, onlineTurn) => {
             turnCounter.innerHTML = `Turn : ${turn}`
         }
     } else {
+        baseInit()
         preModal.style.display = 'none'
         turnCounter.innerHTML = `Turn : ${turn}`
-        baseInit()
     }
 
 }
@@ -73,15 +78,18 @@ const nextTurn = (ele) => {
     if (!turn) {
         return
     }
+    // typeof ele === 'number'
     if (socket?.connected) {
         try {
             if (setTurn !== turn) {
                 console.log(setTurn, turn)
                 return
             }
-            socket.emit('turntaken', ele.classList[1].split('box')[1] - 1)
+            socket.emit('turntaken', ele.classList[1])
             
         } catch (err) {
+            console.log(err)
+            console.log(preModal.style.display)
             return modalChange('error', 'Something went wrong with the server.')
         }
     }
@@ -161,9 +169,19 @@ const joinRoom = async () => {
 }
 
 const modalChange = (changeTo, data) => {
+    console.log(preModal.style.display)
     preModal.style.display = 'flex'
+    console.log(preModal.style.display)
     switch (changeTo) {
         case 'cancel':
+            grid = [null, null, null, null, null, null, null, null, null]
+            turn = null
+            document.querySelectorAll('.box span').forEach(span => {
+                span.style.display = 'none'
+                span.style.color = '#dcdcdc'
+                span.innerHTML = ''
+            })
+            turnCounter.innerHTML = ''
             preModal.innerHTML = `<p>Select your game type</p><div><button onclick="initializeGame()">Local</button><button onclick="modalChange('online')">Online</button></div>`
             break;
         case 'online':

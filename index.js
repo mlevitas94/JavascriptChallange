@@ -46,6 +46,15 @@ io.on('connection', (socket) => {
     console.log('disconnected')
   })
 
+  socket.on('disconnecting', () => {
+    console.log('disconnected')
+    console.log(socket.rooms)
+    socket.rooms.forEach(room => {
+      console.log(room)
+      socket.to(room).emit('playerdisconnected')
+    })
+  })
+
   socket.on('createroom', (res) => {
     if (socket.rooms.size > 2) {
       return res({ tooManyRooms: true })
@@ -80,9 +89,9 @@ io.on('connection', (socket) => {
     }
   })
   
-  socket.on('turntaken', (gridPlace) => {
+  socket.on('turntaken', (gridElement) => {
     socket.rooms.forEach(room => {
-      socket.to(room).emit('waitingturn', gridPlace)
+      socket.to(room).emit('waitingturn', gridElement)
     })
   })
 
