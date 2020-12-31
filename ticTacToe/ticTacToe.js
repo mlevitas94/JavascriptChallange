@@ -28,10 +28,11 @@ const initializeGame = (online, onlineTurn) => {
             })
             socket.on('waitingturn', res => {
                 nextTurn(document.querySelector(`.${res}`), false)
-                preModal.style.display = 'none'
-                if (setTurn !== turn) {
-                    console.log(setTurn, turn)
+                if (setTurn === turn) {
                     modalChange('waitingturn', `Waiting for ${turn === 'X' ? 'O' : 'X'} to go...`)
+                } else {
+                    console.log('modal change should happen')
+                    modalChange('removemodal')
                 }
             })
         } catch (err) {
@@ -44,12 +45,12 @@ const initializeGame = (online, onlineTurn) => {
             modalChange('waitingturn', 'Waiting for X to go...')
             turnCounter.innerHTML = `Turn : O`
         } else {
-            preModal.style.display = 'none'
+            modalChange('removemodal')
             turnCounter.innerHTML = `Turn : ${turn}`
         }
     } else {
         baseInit()
-        preModal.style.display = 'none'
+        modalChange('removemodal')
         turnCounter.innerHTML = `Turn : ${turn}`
     }
 
@@ -73,7 +74,7 @@ const checkWin = () => {
     return result
 }
 
-const nextTurn = (ele, sendTurn) => {
+const nextTurn = async (ele, sendTurn) => {
     //when being called on the client listener, ele is a number, needs to be element for grid displays
     if (!turn) {
         return
@@ -84,15 +85,15 @@ const nextTurn = (ele, sendTurn) => {
             if (setTurn !== turn) {
                 return
             }
-            if(sendTurn){
-                socket.emit('turntaken', ele.classList[1])
+            if (sendTurn) {
+                await socket.emit('turntaken', ele.classList[1])
             }
-            
+
         } catch (err) {
             return modalChange('error', 'Something went wrong with the server.')
         }
     }
-    let gridPlace = ele.classList[1].split('box')[1] - 1 
+    let gridPlace = ele.classList[1].split('box')[1] - 1
     if (grid[gridPlace] !== null) {
         return
     }
@@ -105,17 +106,21 @@ const nextTurn = (ele, sendTurn) => {
         return initializeGame()
     }
 
+    document.querySelectorAll('.box span').forEach(span => {
+        if (span.style.display !== 'block') {
+            console.log(turn, setTurn)
+            span.innerHTML = turn !== setTurn ? turn : 'X' ? 'O' : 'X'
+        }
+    })
     if (turn === 'X') {
         turn = 'O'
     } else {
         turn = 'X'
     }
     turnCounter.innerHTML = `Turn : ${turn}`
-    document.querySelectorAll('.box span').forEach(span => {
-        if (span.style.display !== 'block') {
-            span.innerHTML = turn
-        }
-    })
+
+    socket?.connected ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : null
+
 }
 
 const createRoom = async () => {
@@ -203,6 +208,10 @@ const modalChange = (changeTo, data) => {
         case 'error':
             preModal.innerHTML = `<p>${data}</p> <br/> <button onclick="modalChange('cancel')">Back</button>`
             socket.disconnect()
+            break;
+        case 'removemodal':
+            preModal.innerHTML = ''
+            preModal.style.display = 'none';
             break;
         default:
     }
