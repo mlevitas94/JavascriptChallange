@@ -1,4 +1,3 @@
-
 const preModal = document.querySelector('.gameType');
 const turnCounter = document.querySelector('.turnCounter')
 let socket;
@@ -31,7 +30,6 @@ const initializeGame = (online, onlineTurn) => {
                 if (setTurn === turn) {
                     modalChange('waitingturn', `Waiting for ${turn === 'X' ? 'O' : 'X'} to go...`)
                 } else {
-                    console.log('modal change should happen')
                     modalChange('removemodal')
                 }
             })
@@ -43,7 +41,7 @@ const initializeGame = (online, onlineTurn) => {
         setTurn = turn
         if (turn === 'O') {
             modalChange('waitingturn', 'Waiting for X to go...')
-            turnCounter.innerHTML = `Turn : O`
+            turnCounter.innerHTML = `Turn : X`
         } else {
             modalChange('removemodal')
             turnCounter.innerHTML = `Turn : ${turn}`
@@ -79,7 +77,6 @@ const nextTurn = async (ele, sendTurn) => {
     if (!turn) {
         return
     }
-    // typeof ele === 'number'
     if (socket?.connected) {
         try {
             if (setTurn !== turn) {
@@ -97,7 +94,12 @@ const nextTurn = async (ele, sendTurn) => {
     if (grid[gridPlace] !== null) {
         return
     }
-    grid[gridPlace] = turn
+
+    if (!sendTurn && socket?.connected) {
+        grid[gridPlace] =  turn === 'X' ? 'O' : 'X'
+    } else {
+        grid[gridPlace] = turn
+    }
     ele.children[0].style.display = 'block'
     ele.children[0].style.color = 'black'
 
@@ -106,18 +108,22 @@ const nextTurn = async (ele, sendTurn) => {
         return initializeGame()
     }
 
-    document.querySelectorAll('.box span').forEach(span => {
-        if (span.style.display !== 'block') {
-            console.log(turn, setTurn)
-            span.innerHTML = turn !== setTurn ? turn : 'X' ? 'O' : 'X'
-        }
-    })
     if (turn === 'X') {
         turn = 'O'
     } else {
         turn = 'X'
     }
-    turnCounter.innerHTML = `Turn : ${turn}`
+    document.querySelectorAll('.box span').forEach(span => {
+        if (span.style.display !== 'block') {
+            span.innerHTML = turn === 'X' ? 'O' : 'X'
+        }else{
+            if(!sendTurn && socket?.connected){
+                span.innerHTML = turn
+            }
+        }
+    })
+
+    turnCounter.innerHTML = `Turn : ${turn !== setTurn && sendTurn ? turn : turn === 'X' ? 'O' : 'X'}`
 
     socket?.connected ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : null
 
