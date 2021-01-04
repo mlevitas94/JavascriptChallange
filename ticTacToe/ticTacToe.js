@@ -23,15 +23,10 @@ const initializeGame = (online, onlineTurn) => {
         try {
             socket.on('playerdisconnected', () => {
                 modalChange('error', 'The other player has disconnected')
-
             })
             socket.on('waitingturn', res => {
+                console.log(turn)
                 nextTurn(document.querySelector(`.${res}`), false)
-                if (setTurn === turn) {
-                    modalChange('waitingturn', `Waiting for ${turn === 'X' ? 'O' : 'X'} to go...`)
-                } else {
-                    modalChange('removemodal')
-                }
             })
         } catch (err) {
             console.log(err)
@@ -46,6 +41,7 @@ const initializeGame = (online, onlineTurn) => {
             modalChange('removemodal')
             turnCounter.innerHTML = `Turn : ${turn}`
         }
+        turn = 'X'
     } else {
         baseInit()
         modalChange('removemodal')
@@ -73,59 +69,55 @@ const checkWin = () => {
 }
 
 const nextTurn = async (ele, sendTurn) => {
-    //when being called on the client listener, ele is a number, needs to be element for grid displays
+    //rewriting this for synced online communication
     if (!turn) {
         return
     }
+
+
     if (socket?.connected) {
         try {
-            if (setTurn !== turn) {
-                return
-            }
             if (sendTurn) {
                 await socket.emit('turntaken', ele.classList[1])
             }
-
         } catch (err) {
             return modalChange('error', 'Something went wrong with the server.')
         }
+
     }
+
     let gridPlace = ele.classList[1].split('box')[1] - 1
+
     if (grid[gridPlace] !== null) {
         return
     }
 
-    if (!sendTurn && socket?.connected) {
-        grid[gridPlace] =  turn === 'X' ? 'O' : 'X'
-    } else {
-        grid[gridPlace] = turn
-    }
     ele.children[0].style.display = 'block'
     ele.children[0].style.color = 'black'
+
+    grid[gridPlace] = turn
+
+    console.log(grid)
 
     if (checkWin()) {
 
         return initializeGame()
     }
-
-    if (turn === 'X') {
-        turn = 'O'
-    } else {
-        turn = 'X'
-    }
+    
     document.querySelectorAll('.box span').forEach(span => {
         if (span.style.display !== 'block') {
-            span.innerHTML = turn === 'X' ? 'O' : 'X'
-        }else{
-            if(!sendTurn && socket?.connected){
-                span.innerHTML = turn
-            }
-        }
+            span.innerHTML = turn 
+        } 
     })
 
-    turnCounter.innerHTML = `Turn : ${turn !== setTurn && sendTurn ? turn : turn === 'X' ? 'O' : 'X'}`
+    turn === 'X' ? turn = 'O' : turn = 'X'
 
-    socket?.connected ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : null
+    sendTurn ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : modalChange('removemodal')
+
+
+
+
+
 
 }
 
