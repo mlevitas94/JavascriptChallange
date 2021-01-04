@@ -1,7 +1,7 @@
 const preModal = document.querySelector('.gameType');
 const turnCounter = document.querySelector('.turnCounter')
 let socket;
-let setTurn
+let currentTurn;
 let grid = [null, null, null, null, null, null, null, null, null]
 let turn = null
 
@@ -10,8 +10,10 @@ const initializeGame = (online, onlineTurn) => {
         grid = [null, null, null, null, null, null, null, null, null]
         if ((typeof onlineTurn === 'undefined' ? Math.floor(Math.random() * 2) : onlineTurn) === 0) {
             turn = 'O'
+            socket?.connected ? currentTurn = false : null
         } else {
             turn = 'X'
+            socket?.connected ? currentTurn = true : null
         }
         document.querySelectorAll('.box span').forEach(span => {
             span.style.display = 'none'
@@ -25,7 +27,6 @@ const initializeGame = (online, onlineTurn) => {
                 modalChange('error', 'The other player has disconnected')
             })
             socket.on('waitingturn', res => {
-                console.log(turn)
                 nextTurn(document.querySelector(`.${res}`), false)
             })
         } catch (err) {
@@ -33,7 +34,6 @@ const initializeGame = (online, onlineTurn) => {
             return modalChange('error', 'Something went wrong with the server.')
         }
         baseInit()
-        setTurn = turn
         if (turn === 'O') {
             modalChange('waitingturn', 'Waiting for X to go...')
             turnCounter.innerHTML = `Turn : X`
@@ -42,6 +42,11 @@ const initializeGame = (online, onlineTurn) => {
             turnCounter.innerHTML = `Turn : ${turn}`
         }
         turn = 'X'
+        document.querySelectorAll('.box span').forEach(span => {
+            span.style.display = 'none'
+            span.style.color = '#dcdcdc'
+            span.innerHTML = turn
+        })
     } else {
         baseInit()
         modalChange('removemodal')
@@ -95,6 +100,8 @@ const nextTurn = async (ele, sendTurn) => {
     ele.children[0].style.display = 'block'
     ele.children[0].style.color = 'black'
 
+    // console.log(ele.children[0].innerHTML)
+
     grid[gridPlace] = turn
 
     console.log(grid)
@@ -104,20 +111,17 @@ const nextTurn = async (ele, sendTurn) => {
         return initializeGame()
     }
     
-    document.querySelectorAll('.box span').forEach(span => {
-        if (span.style.display !== 'block') {
-            span.innerHTML = turn 
-        } 
-    })
 
     turn === 'X' ? turn = 'O' : turn = 'X'
 
-    sendTurn ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : modalChange('removemodal')
+    document.querySelectorAll('.box span').forEach(span => {
+        if (span.style.display !== 'block') {
+            span.innerHTML = turn 
 
+        } 
+    })
 
-
-
-
+    sendTurn && socket?.connected ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : modalChange('removemodal')
 
 }
 
