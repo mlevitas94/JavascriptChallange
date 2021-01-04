@@ -95,6 +95,12 @@ io.on('connection', (socket) => {
     })
   })
 
+  socket.on('playagain', () => {
+    socket.rooms.forEach(room => {
+      socket.to(room).emit('playagainconfirmed')
+    })
+  })
+
 });
 
 http.listen(SERVER_PORT, () => console.log(`Now arriving at ${SERVER_PORT}`));

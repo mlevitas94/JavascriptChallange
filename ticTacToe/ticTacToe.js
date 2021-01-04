@@ -55,6 +55,22 @@ const initializeGame = (online, onlineTurn) => {
 
 }
 
+const playAgain = () => {
+    if (!socket?.connected) {
+        initializeGame()
+    } else {
+        try{
+            socket.emit('playagain')
+            modalChange('playagainwaiting')
+            socket.on('playagainconfirmed', () => {
+                socket.emit('playagain')
+            })
+        }catch(err){
+            return modalChange('error', 'Something went wrong with the server')
+        }
+    }
+}
+
 const checkWin = () => {
     const horizontal = [0, 3, 6].map(n => {
         return [n, n + 1, n + 2]
@@ -100,25 +116,22 @@ const nextTurn = async (ele, sendTurn) => {
     ele.children[0].style.display = 'block'
     ele.children[0].style.color = 'black'
 
-    // console.log(ele.children[0].innerHTML)
 
     grid[gridPlace] = turn
 
-    console.log(grid)
 
     if (checkWin()) {
-
-        return initializeGame()
+        return modalChange('gamefinished', `${turn} Won!`)
     }
-    
+
 
     turn === 'X' ? turn = 'O' : turn = 'X'
 
     document.querySelectorAll('.box span').forEach(span => {
         if (span.style.display !== 'block') {
-            span.innerHTML = turn 
+            span.innerHTML = turn
 
-        } 
+        }
     })
 
     sendTurn && socket?.connected ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : modalChange('removemodal')
@@ -187,6 +200,7 @@ const modalChange = (changeTo, data) => {
             })
             turnCounter.innerHTML = ''
             preModal.innerHTML = `<p>Select your game type</p><div><button onclick="initializeGame()">Local</button><button onclick="modalChange('online')">Online</button></div>`
+            socket.disconnect()
             break;
         case 'online':
             preModal.innerHTML = `<p>Create or join a room?</p><div><button onclick="modalChange('create')">Create Room</button><button onclick="modalChange('join')">Join Room</button><button onclick="modalChange('cancel')">Cancel</button></div>`
@@ -201,11 +215,17 @@ const modalChange = (changeTo, data) => {
         case 'waiting':
             preModal.innerHTML = `<p>The room number is : ${data}</p><br/><br/><p>Waiting for player 2 to join...</p>`
             break;
+        case 'playagainwaiting':
+            preModal.innerHTML = `<p>Waiting for the other player to accept...</p><br/><br/><p>Waiting for player 2 to join...</p>`
+            break;
         case 'Joining':
             preModal.innerHTML = `<p>Joining room...</p>`
             break;
         case 'waitingturn':
             preModal.innerHTML = `<p>${data}</p>`
+            break;
+        case 'gamefinished':
+            preModal.innerHTML = `<p>${data}</p></br><div><button onclick="playAgain()">Play Again</button> <button onclick="modalChange('cancel')">Exit</button></div>`
             break;
         case 'error':
             preModal.innerHTML = `<p>${data}</p> <br/> <button onclick="modalChange('cancel')">Back</button>`
