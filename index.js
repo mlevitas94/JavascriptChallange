@@ -42,10 +42,6 @@ io.on('connection', (socket) => {
   console.log('something connected');
   socket.leave(socket.id)
 
-  const initGameData = () => {
-
-  }
-
   socket.on('disconnect', () => {
     console.log('disconnected')
   })
@@ -85,14 +81,14 @@ io.on('connection', (socket) => {
     socket.join(`room-${room}`)
 
     try {
-      const turn = Math.floor(Math.random() *2)
+      const turn = Math.floor(Math.random() * 2)
       socket.to(`room-${room}`).emit('someonejoined', turn === 0 ? 1 : 0)
       res({ join: true, turn: turn })
     } catch (err) {
       console.log(err)
     }
   })
-  
+
   socket.on('turntaken', (gridElement) => {
     socket.rooms.forEach(room => {
       socket.to(room).emit('waitingturn', gridElement)
@@ -103,6 +99,19 @@ io.on('connection', (socket) => {
     socket.rooms.forEach(room => {
       socket.to(room).emit('playagainconfirmed')
     })
+  })
+
+  socket.on('initplayagain', (res) => {
+    const turn = Math.floor(Math.random() * 2)
+    try{
+      socket.rooms.forEach( room => {
+         socket.to(`${room}`).emit('playagainconfirmed', turn === 0 ? 1 : 0)
+      })
+      res({turn : turn})
+    }catch(err){
+      console.log(err)
+    }
+
   })
 
 });

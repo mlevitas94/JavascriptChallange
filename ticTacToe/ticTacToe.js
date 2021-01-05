@@ -8,6 +8,7 @@ let turn = null
 
 const initializeGame = (online, onlineTurn) => {
     const baseInit = () => {
+        playAgainConfirmed = false
         grid = [null, null, null, null, null, null, null, null, null]
         if ((typeof onlineTurn === 'undefined' ? Math.floor(Math.random() * 2) : onlineTurn) === 0) {
             turn = 'O'
@@ -61,10 +62,12 @@ const playAgain = () => {
         initializeGame()
     } else {
         try {
-            if(playAgainConfirmed){
-                console.log('start game')
+            if (playAgainConfirmed) {
+                return socket.emit('initplayagain', (res) => {
+                
+                    initializeGame(true, res.turn)
+                })
             }
-            playAgainConfirmed = true
             socket.emit('playagain')
             modalChange('playagainwaiting')
         } catch (err) {
@@ -156,11 +159,15 @@ const createRoom = async () => {
         initializeGame(true, turn)
     })
 
-    socket.on('playagainconfirmed', () => {
-        if(playAgainConfirmed){
-            return console.log('start game')
+    socket.on('playagainconfirmed', (resetTurn) => {
+        if (typeof resetTurn !== 'number') {
+            if (!playAgainConfirmed) {
+                playAgainConfirmed = true
+            }
+        } else {
+        
+            initializeGame(true, resetTurn)
         }
-        playAgainConfirmed = true
     })
 
     socket.emit('createroom', res => {
@@ -178,11 +185,15 @@ const createRoom = async () => {
 const joinRoom = async () => {
     try {
         socket = await io('http://localhost:5555')
-        socket.on('playagainconfirmed', () => {
-            if(playAgainConfirmed){
-                return console.log('start game')
+        socket.on('playagainconfirmed', (resetTurn) => {
+            if (typeof resetTurn !== 'number') {
+                if (!playAgainConfirmed) {
+                    playAgainConfirmed = true
+                }
+            } else {
+            
+                initializeGame(true, resetTurn)
             }
-            playAgainConfirmed = true
         })
     } catch (err) {
         console.log(err)
