@@ -2,6 +2,7 @@ const preModal = document.querySelector('.gameType');
 const turnCounter = document.querySelector('.turnCounter')
 let socket;
 let currentTurn;
+let playAgainConfirmed = false;
 let grid = [null, null, null, null, null, null, null, null, null]
 let turn = null
 
@@ -59,13 +60,14 @@ const playAgain = () => {
     if (!socket?.connected) {
         initializeGame()
     } else {
-        try{
+        try {
+            if(playAgainConfirmed){
+                console.log('start game')
+            }
+            playAgainConfirmed = true
             socket.emit('playagain')
             modalChange('playagainwaiting')
-            socket.on('playagainconfirmed', () => {
-                socket.emit('playagain')
-            })
-        }catch(err){
+        } catch (err) {
             return modalChange('error', 'Something went wrong with the server')
         }
     }
@@ -139,15 +141,26 @@ const nextTurn = async (ele, sendTurn) => {
 }
 
 const createRoom = async () => {
+
     try {
         socket = await io('http://localhost:5555')
+
     } catch (err) {
         console.log(err)
-        return modalChange('error', 'Something went wrong with the server.')
+        return modalChange('error', 'Could not create room.')
     }
+
+
 
     socket.on('someonejoined', turn => {
         initializeGame(true, turn)
+    })
+
+    socket.on('playagainconfirmed', () => {
+        if(playAgainConfirmed){
+            return console.log('start game')
+        }
+        playAgainConfirmed = true
     })
 
     socket.emit('createroom', res => {
@@ -165,6 +178,12 @@ const createRoom = async () => {
 const joinRoom = async () => {
     try {
         socket = await io('http://localhost:5555')
+        socket.on('playagainconfirmed', () => {
+            if(playAgainConfirmed){
+                return console.log('start game')
+            }
+            playAgainConfirmed = true
+        })
     } catch (err) {
         console.log(err)
         return modalChange('error', 'Could not connect to online match.')
@@ -216,7 +235,7 @@ const modalChange = (changeTo, data) => {
             preModal.innerHTML = `<p>The room number is : ${data}</p><br/><br/><p>Waiting for player 2 to join...</p>`
             break;
         case 'playagainwaiting':
-            preModal.innerHTML = `<p>Waiting for the other player to accept...</p><br/><br/><p>Waiting for player 2 to join...</p>`
+            preModal.innerHTML = `<p>Waiting for the other player to accept...</p>`
             break;
         case 'Joining':
             preModal.innerHTML = `<p>Joining room...</p>`

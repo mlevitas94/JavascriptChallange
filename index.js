@@ -42,6 +42,10 @@ io.on('connection', (socket) => {
   console.log('something connected');
   socket.leave(socket.id)
 
+  const initGameData = () => {
+
+  }
+
   socket.on('disconnect', () => {
     console.log('disconnected')
   })
