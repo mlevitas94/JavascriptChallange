@@ -64,7 +64,7 @@ const playAgain = () => {
         try {
             if (playAgainConfirmed) {
                 return socket.emit('initplayagain', (res) => {
-                
+
                     initializeGame(true, res.turn)
                 })
             }
@@ -77,6 +77,7 @@ const playAgain = () => {
 }
 
 const checkWin = () => {
+
     const horizontal = [0, 3, 6].map(n => {
         return [n, n + 1, n + 2]
     })
@@ -92,6 +93,7 @@ const checkWin = () => {
     })
 
     return result
+
 }
 
 const nextTurn = async (ele, sendTurn) => {
@@ -127,6 +129,10 @@ const nextTurn = async (ele, sendTurn) => {
 
     if (checkWin()) {
         return modalChange('gamefinished', `${turn} Won!`)
+    }
+
+    if(grid.every(ele => ele !== null)){
+        return modalChange('gamefinished', `Tie`)
     }
 
 
@@ -165,7 +171,7 @@ const createRoom = async () => {
                 playAgainConfirmed = true
             }
         } else {
-        
+
             initializeGame(true, resetTurn)
         }
     })
@@ -191,7 +197,7 @@ const joinRoom = async () => {
                     playAgainConfirmed = true
                 }
             } else {
-            
+
                 initializeGame(true, resetTurn)
             }
         })
