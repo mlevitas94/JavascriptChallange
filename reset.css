@@ -88,6 +88,7 @@ table {
 	margin: 22px 0;
 	display: flex;
 	padding: 5px;
+	width: auto;
 }
 .sideNav ul li:hover{
 	cursor: pointer;

@@ -23,15 +23,15 @@
         <div class="projectCard">
             <div class="sideNav">
                 <ul>
-                    <li onclick="projectDirect(this,'purpleRainCont')" class="navItem"><i class="fas fa-tint"></i></li>
-                    <li onclick="projectDirect(this,'newYearsCont')" class="navItem"><i class="fas fa-stopwatch"></i></li>
-                    <li onclick="projectDirect(this,'calculatorCont')" class="navItem"><i class="fas fa-calculator"></i></li>
-                    <li onclick="projectDirect(this,'dragAndDrop')" class="navItem"><i class="fas fa-hand-pointer"></i></li>
-                    <li onclick="projectDirect(this,'hearthCont')" class="navItem"><i class="fas fa-search"></i></li>
-                    <li onclick="projectDirect(this,'ticTacCont')" class="navItem"><i class="fas fa-gamepad"></i></li>
+                    <li onclick="projectDirect('purpleRainCont')" class="purplerain navItem"><i class="fas fa-tint"></i></li>
+                    <li onclick="projectDirect('newYearsCont')" class="newyears navItem"><i class="fas fa-stopwatch"></i></li>
+                    <li onclick="projectDirect('calculatorCont')" class="calc navItem"><i class="fas fa-calculator"></i></li>
+                    <li onclick="projectDirect('dragAndDrop')" class="draganddrop navItem"><i class="fas fa-hand-pointer"></i></li>
+                    <li onclick="projectDirect('hearthCont')" class="hearth navItem"><i class="fas fa-search"></i></li>
+                    <li onclick="projectDirect('ticTacCont')" class="tictactoe navItem"><i class="fas fa-gamepad"></i></li>
                 </ul>
             </div>
-            <div id='purpleRainCont' class="purpleRainCont projectSection"></div>
+            <div id='purplerain' class="purpleRainCont projectSection"></div>
             <div class="description">
                 <h4>Tittle</h4>
                 <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
@@ -39,7 +39,7 @@
         </div>
 
         <div class="projectCard">
-            <div class="projectSection newYearsCont">
+            <div class="projectSection newYearsCont" id="newyears">
                 <div class="title">Count Down to <span></span></div>
                 <div class="countDownCont">
                     <div class="containingCard">
@@ -112,7 +112,7 @@
         </div>
        
         <div class="projectCard">
-            <div class="projectSection calculatorCont">
+            <div class="projectSection calculatorCont" id="calc">
                 <div class="calculator">
                     <div class="resultBar">
                         <div class="result">
@@ -152,7 +152,7 @@
             </div>
         </div>
         <div class="projectCard">
-            <div class="projectSection dragAndDrop">
+            <div class="projectSection dragAndDrop" id="draganddrop">
                 <div class="sectionContainers">
                     <div class="left">
                         <div class="newInput">
@@ -192,7 +192,7 @@
             </div>
         </div>
         <div class="projectCard">
-            <div class="projectSection hearthCont">
+            <div class="projectSection hearthCont" id="hearth">
                 <div class="loadingModal">
                     <div class="spinner">
                         <div class="cube1"></div>
@@ -301,7 +301,7 @@
             </div>
         </div>
         <div class="projectCard">
-            <div class="projectSection ticTacCont">
+            <div class="projectSection ticTacCont" id="tictactoe">
                 <div class="turnCounter"></div>
                 <div class="gameType">
                     <p>Select your game type</p>
