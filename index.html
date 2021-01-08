@@ -21,16 +21,16 @@
 <body>
     <div class="projectCont">
         <div class="projectCard">
-            <nav class="sideNav">
+            <div class="sideNav">
                 <ul>
-                    <li class="navItem"><i class="fas fa-tint"></i></li>
-                    <li class="navItem"><i class="fas fa-stopwatch"></i></li>
-                    <li class="navItem"><i class="fas fa-calculator"></i></li>
-                    <li class="navItem"><i class="fas fa-hand-pointer"></i></li>
-                    <li class="navItem"><i class="fas fa-search"></i></li>
-                    <li class="navItem"><i class="fas fa-gamepad"></i></li>
+                    <li onclick="projectDirect(this,'purpleRainCont')" class="navItem"><i class="fas fa-tint"></i></li>
+                    <li onclick="projectDirect(this,'newYearsCont')" class="navItem"><i class="fas fa-stopwatch"></i></li>
+                    <li onclick="projectDirect(this,'calculatorCont')" class="navItem"><i class="fas fa-calculator"></i></li>
+                    <li onclick="projectDirect(this,'dragAndDrop')" class="navItem"><i class="fas fa-hand-pointer"></i></li>
+                    <li onclick="projectDirect(this,'hearthCont')" class="navItem"><i class="fas fa-search"></i></li>
+                    <li onclick="projectDirect(this,'ticTacCont')" class="navItem"><i class="fas fa-gamepad"></i></li>
                 </ul>
-            </nav>
+            </div>
             <div id='purpleRainCont' class="purpleRainCont projectSection"></div>
             <div class="description">
                 <h4>Tittle</h4>
@@ -346,6 +346,7 @@
             </div>
         </div>
     </div>
+    <script src="./landing.js"></script>
     <script src="./node_modules/socket.io/client-dist/socket.io.js"></script>
     <script src="./purplerain/purpleRain.js"></script>
     <script src="./newyears/newyears.js"></script>

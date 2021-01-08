@@ -89,6 +89,14 @@ table {
 	display: flex;
 	padding: 5px;
 }
+.sideNav ul li:hover{
+	cursor: pointer;
+}
+
+.navActive{
+	background-color: #b5b5b5;
+}
+
 .sideNav ul li i {
 	margin: 0 auto;
 	font-size: 22px;

@@ -1,12 +1,14 @@
 .purpleRainCont{
     overflow: hidden;
     position: relative;
+    background-image: url('./thunder.jpg');
+    background-size: cover;
 }
 .droplet{
     height: 10px;
     width: 10px;
     border-radius: 0 50% 50% 50%;
-    background-color: purple;
+    background-color: rgb(204, 0, 204);
     position: absolute;
     left: 5px;
     top: 5px;
