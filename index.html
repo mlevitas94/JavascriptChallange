@@ -13,288 +13,336 @@
     <link rel="stylesheet" href="./draganddrop/draganddrop.css" />
     <link rel="stylesheet" href="./hearthstone/hearthstone.css" />
     <link rel="stylesheet" href="./ticTacToe/ticTacToe.css" />
+    <link rel="stylesheet" href="./fontawesome-free-5.15.1-web/css/all.css" />
     <link rel="stylesheet" href="./reset.css" />
     <script></script>
 </head>
 
 <body>
     <div class="projectCont">
-        <div id='purpleRainCont' class="purpleRainCont projectSection"></div>
-
-        <div class="projectSection newYearsCont">
-            <div class="title">Count Down to <span></span></div>
-            <div class="countDownCont">
-                <div class="containingCard">
-                    <span class="countTitle">Days</span>
-                    <div>
-                        <span class="days card">
-                            <b class="top">
-                                <span class="nextNum" data-number=""></span>
-                                <span class="flipCont">
-                                    <span class="flipFront"><span></span></span>
-                                    <span class="flipBack"><span></span></span>
-                                </span>
-                            </b>
-                            <b class="bottom"><span>4</span></b>
-                        </span>
-                    </div>
-                </div>
-                <div class="containingCard">
-                    <span class="countTitle">Hours</span>
-                    <div>
-                        <span class="hours card">
-                            <b class="top">
-                                <span class="nextNum" data-number=""></span>
-                                <span class="flipCont">
-                                    <span class="flipFront"><span></span></span>
-                                    <span class="flipBack"><span></span></span>
-                                </span>
-                            </b>
-                            <b class="bottom"><span>4</span></b>
-                        </span>
-                    </div>
-                </div>
-                <div class="containingCard">
-                    <span class="countTitle">Minutes</span>
-                    <div>
-                        <span class="minutes card">
-                            <b class="top">
-                                <span class="nextNum" data-number=""></span>
-                                <span class="flipCont">
-                                    <span class="flipFront"><span></span></span>
-                                    <span class="flipBack"><span></span></span>
-                                </span>
-                            </b>
-                            <b class="bottom"><span>4</span></b>
-                        </span>
-                    </div>
-                </div>
-                <div class="containingCard">
-                    <span class="countTitle">Seconds</span>
-                    <div>
-                        <span class="seconds card">
-                            <b class="top">
-                                <span class="nextNum" data-number=""></span>
-                                <span class="flipCont">
-                                    <span class="flipFront"><span></span></span>
-                                    <span class="flipBack"><span></span></span>
-                                </span>
-                            </b>
-                            <b class="bottom"><span>4</span></b>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="projectSection calculatorCont">
-            <div class="calculator">
-                <div class="resultBar">
-                    <div class="result">
-                        <span class="finalResult">0</span>
-                        <span class="currentEq">0</span>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <div class="numbers">
-                        <span class="clear">C</span>
-                        <span>7</span>
-                        <span>8</span>
-                        <span>9</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>6</span>
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span class="zero">0</span>
-                        <span class="decimal">.</span>
-                    </div>
-                    <div class="equations">
-                        <span>/</span>
-                        <span class="times">*</span>
-                        <span>-</span>
-                        <span>+</span>
-                        <span class="equals">=</span>
-                    </div>
-                </div>
-
+        <div class="projectCard">
+            <nav class="sideNav">
+                <ul>
+                    <li class="navItem"><i class="fas fa-tint"></i></li>
+                    <li class="navItem"><i class="fas fa-stopwatch"></i></li>
+                    <li class="navItem"><i class="fas fa-calculator"></i></li>
+                    <li class="navItem"><i class="fas fa-hand-pointer"></i></li>
+                    <li class="navItem"><i class="fas fa-search"></i></li>
+                    <li class="navItem"><i class="fas fa-gamepad"></i></li>
+                </ul>
+            </nav>
+            <div id='purpleRainCont' class="purpleRainCont projectSection"></div>
+            <div class="description">
+                <h4>Tittle</h4>
+                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
             </div>
         </div>
-        <div class="projectSection dragAndDrop">
-            <div class="sectionContainers">
-                <div class="left">
-                    <div class="newInput">
-                        <label>New Item</label>
-                        <input type="text" />
-                        <button>Add</button>
-                    </div>
 
-                    <span>Group 1</span>
-                    <div class="itemGroup groupOne">
-                        <div class="inner">
-
+        <div class="projectCard">
+            <div class="projectSection newYearsCont">
+                <div class="title">Count Down to <span></span></div>
+                <div class="countDownCont">
+                    <div class="containingCard">
+                        <span class="countTitle">Days</span>
+                        <div>
+                            <span class="days card">
+                                <b class="top">
+                                    <span class="nextNum" data-number=""></span>
+                                    <span class="flipCont">
+                                        <span class="flipFront"><span></span></span>
+                                        <span class="flipBack"><span></span></span>
+                                    </span>
+                                </b>
+                                <b class="bottom"><span>4</span></b>
+                            </span>
                         </div>
-                        <div class="outer">
-
+                    </div>
+                    <div class="containingCard">
+                        <span class="countTitle">Hours</span>
+                        <div>
+                            <span class="hours card">
+                                <b class="top">
+                                    <span class="nextNum" data-number=""></span>
+                                    <span class="flipCont">
+                                        <span class="flipFront"><span></span></span>
+                                        <span class="flipBack"><span></span></span>
+                                    </span>
+                                </b>
+                                <b class="bottom"><span>4</span></b>
+                            </span>
                         </div>
                     </div>
-
+                    <div class="containingCard">
+                        <span class="countTitle">Minutes</span>
+                        <div>
+                            <span class="minutes card">
+                                <b class="top">
+                                    <span class="nextNum" data-number=""></span>
+                                    <span class="flipCont">
+                                        <span class="flipFront"><span></span></span>
+                                        <span class="flipBack"><span></span></span>
+                                    </span>
+                                </b>
+                                <b class="bottom"><span>4</span></b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="containingCard">
+                        <span class="countTitle">Seconds</span>
+                        <div>
+                            <span class="seconds card">
+                                <b class="top">
+                                    <span class="nextNum" data-number=""></span>
+                                    <span class="flipCont">
+                                        <span class="flipFront"><span></span></span>
+                                        <span class="flipBack"><span></span></span>
+                                    </span>
+                                </b>
+                                <b class="bottom"><span>4</span></b>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="right">
-
-                    <span>Group 2</span>
-                    <div class="itemGroup groupTwo">
-                        <div class="inner">
-
-                        </div>
-                        <div class="outer">
-
-                        </div>
-                    </div>
-                </div>
+    
+            </div>
+            <div class="description">
+                <h4>Tittle</h4>
+                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
             </div>
         </div>
-        <div class="projectSection hearthCont">
-            <div class="loadingModal">
-                <div class="spinner">
-                    <div class="cube1"></div>
-                    <div class="cube2"></div>
-                </div>
-
-                <span>Loading assets...</span>
-
-            </div>
-            <div class="inputSide">
-                <div class="inputSection">
-                    <span>Search</span>
-                    <input type="text" name="search" id="search">
-                </div>
-                <div class="inputSection">
-                    <span>Rarity</span>
-                    <div class="rarityCont">
-                        <div>
-                            <input type="radio" name="rarity" id="free" value="Free">
-                            <label for="free" class="free"></label>
+       
+        <div class="projectCard">
+            <div class="projectSection calculatorCont">
+                <div class="calculator">
+                    <div class="resultBar">
+                        <div class="result">
+                            <span class="finalResult">0</span>
+                            <span class="currentEq">0</span>
                         </div>
-                        <div>
-                            <input type="radio" name="rarity" id="common" value="Common">
-                            <label for="common" class="common"></label>
-                        </div>
-                        <div>
-                            <input type="radio" name="rarity" id="rare" value="Rare">
-                            <label for="rare" class="rare"></label>
-                        </div>
-                        <div>
-                            <input type="radio" name="rarity" id="epic" value="Epic">
-                            <label for="epic" class="epic"></label>
-                        </div>
-                        <div>
-                            <input type="radio" name="rarity" id="legendary" value="Legendary">
-                            <label for="legendary" class="legendary"></label>
-
-                        </div>
-
                     </div>
-                </div>
-                <div class="inputSection">
-                    <span>Cost</span>
-                    <select name="cost" id="cost">
-                        <option value="null">N/A</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10+</option>
-                    </select>
-                </div>
-                <div class="inputSection">
-                    <span>Attack</span>
-                    <select name="attack" id="attack">
-                        <option value="null">N/A</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10+</option>
-                    </select>
-                </div>
-                <div class="inputSection">
-                    <span>Health</span>
-                    <select name="health" id="health">
-                        <option value="null">N/A</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10+</option>
-                    </select>
-                </div>
-                <div class="buttonsBottom">
-                    <button onclick="renderCards(false)">Search</button>
-                    <button onclick="clearSearch()">Clear</button>
+                    <div class="buttons">
+                        <div class="numbers">
+                            <span class="clear">C</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span class="zero">0</span>
+                            <span class="decimal">.</span>
+                        </div>
+                        <div class="equations">
+                            <span>/</span>
+                            <span class="times">*</span>
+                            <span>-</span>
+                            <span>+</span>
+                            <span class="equals">=</span>
+                        </div>
+                    </div>
+    
                 </div>
             </div>
-            <div class="cardSide">
-                <div class="cardScroll"></div>
-                <button onclick="renderCards(true)">Load More</button>
+            <div class="description">
+                <h4>Tittle</h4>
+                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
             </div>
         </div>
-        <div class="projectSection ticTacCont">
-            <div class="turnCounter"></div>
-            <div class="gameType">
-                <p>Select your game type</p>
-                <div>
-                    <button onclick="initializeGame()">Local</button>
-                    <button onclick="modalChange('online')">Online</button>
+        <div class="projectCard">
+            <div class="projectSection dragAndDrop">
+                <div class="sectionContainers">
+                    <div class="left">
+                        <div class="newInput">
+                            <label>New Item</label>
+                            <input type="text" />
+                            <button>Add</button>
+                        </div>
+    
+                        <span>Group 1</span>
+                        <div class="itemGroup groupOne">
+                            <div class="inner">
+    
+                            </div>
+                            <div class="outer">
+    
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="right">
+    
+                        <span>Group 2</span>
+                        <div class="itemGroup groupTwo">
+                            <div class="inner">
+    
+                            </div>
+                            <div class="outer">
+    
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="gameCont">
-                <div class="box box1" onclick="nextTurn(this, true)">
-                    <span></span>
+            <div class="description">
+                <h4>Tittle</h4>
+                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+            </div>
+        </div>
+        <div class="projectCard">
+            <div class="projectSection hearthCont">
+                <div class="loadingModal">
+                    <div class="spinner">
+                        <div class="cube1"></div>
+                        <div class="cube2"></div>
+                    </div>
+    
+                    <span>Loading assets...</span>
+    
                 </div>
-                <div class="box box2" onclick="nextTurn(this, true)">
-                    <span></span>
+                <div class="inputSide">
+                    <div class="inputSection">
+                        <span>Search</span>
+                        <input type="text" name="search" id="search">
+                    </div>
+                    <div class="inputSection">
+                        <span>Rarity</span>
+                        <div class="rarityCont">
+                            <div>
+                                <input type="radio" name="rarity" id="free" value="Free">
+                                <label for="free" class="free"></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="rarity" id="common" value="Common">
+                                <label for="common" class="common"></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="rarity" id="rare" value="Rare">
+                                <label for="rare" class="rare"></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="rarity" id="epic" value="Epic">
+                                <label for="epic" class="epic"></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="rarity" id="legendary" value="Legendary">
+                                <label for="legendary" class="legendary"></label>
+    
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="inputSection">
+                        <span>Cost</span>
+                        <select name="cost" id="cost">
+                            <option value="null">N/A</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10+</option>
+                        </select>
+                    </div>
+                    <div class="inputSection">
+                        <span>Attack</span>
+                        <select name="attack" id="attack">
+                            <option value="null">N/A</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10+</option>
+                        </select>
+                    </div>
+                    <div class="inputSection">
+                        <span>Health</span>
+                        <select name="health" id="health">
+                            <option value="null">N/A</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10+</option>
+                        </select>
+                    </div>
+                    <div class="buttonsBottom">
+                        <button onclick="renderCards(false)">Search</button>
+                        <button onclick="clearSearch()">Clear</button>
+                    </div>
                 </div>
-                <div class="box box3" onclick="nextTurn(this, true)">
-                    <span></span>
+                <div class="cardSide">
+                    <div class="cardScroll"></div>
+                    <button onclick="renderCards(true)">Load More</button>
                 </div>
-                <div class="box box4" onclick="nextTurn(this, true)">
-                    <span></span>
+            </div>
+            <div class="description">
+                <h4>Tittle</h4>
+                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+            </div>
+        </div>
+        <div class="projectCard">
+            <div class="projectSection ticTacCont">
+                <div class="turnCounter"></div>
+                <div class="gameType">
+                    <p>Select your game type</p>
+                    <div>
+                        <button onclick="initializeGame()">Local</button>
+                        <button onclick="modalChange('online')">Online</button>
+                    </div>
                 </div>
-                <div class="box box5" onclick="nextTurn(this, true)">
-                    <span></span>
+                <div class="gameCont">
+                    <div class="box box1" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box2" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box3" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box4" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box5" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box6" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box7" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box8" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
+                    <div class="box box9" onclick="nextTurn(this, true)">
+                        <span></span>
+                    </div>
                 </div>
-                <div class="box box6" onclick="nextTurn(this, true)">
-                    <span></span>
-                </div>
-                <div class="box box7" onclick="nextTurn(this, true)">
-                    <span></span>
-                </div>
-                <div class="box box8" onclick="nextTurn(this, true)">
-                    <span></span>
-                </div>
-                <div class="box box9" onclick="nextTurn(this, true)">
-                    <span></span>
-                </div>
+            </div>
+            <div class="description">
+                <h4>Tittle</h4>
+                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
             </div>
         </div>
     </div>

@@ -44,17 +44,62 @@ table {
 	border-spacing: 0;
 }
 
+.projectCard{
+	margin: 0 auto 66px auto;
+	width: fit-content;
+	width: 600px;
+	position: relative;
+}
+
+.description{
+	background-color: white;
+	border-top: 1px solid black;
+	padding: 22px;
+}
+
+.description h4{
+	font-weight: bolder;
+	font-size: 33px;
+	margin-bottom: 22px;
+}
+
+.description p {
+	line-height: 1.2rem;
+}
+
 .projectCont{
 	background-color: grey;
 	padding: 44px 0;
 }
 
+.sideNav{
+	position: absolute;
+	top: 0;
+	left: -75px;
+}
+
+.sideNav ul{
+	position: fixed;
+	background-color: white;
+	border-radius: 20px
+}
+
+.sideNav ul li{
+	margin: 22px 0;
+	display: flex;
+	padding: 5px;
+}
+.sideNav ul li i {
+	margin: 0 auto;
+	font-size: 22px;
+}
+
 .projectSection{
-	width: 600px;
+	width: 100%;
 	height: 500px;
-    margin: 0 auto 44px auto;
 	background-color: white;
 	position: relative;
+	/* margin: 0 auto 44px auto; */
 	
 }
 
