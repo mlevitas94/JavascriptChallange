@@ -133,9 +133,27 @@ h1 {
 	margin-bottom: 66px;
 }
 
+@media screen and (min-width: 775px){
+	.projectCont{
+		display: block !important;
+	}
+	.viewRestrict{
+		display: none !important;
+	}
+}
+
+.viewRestrict{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100vh;
+	text-align: center;
+	line-height: 1.2rem;
+}
 .projectCont {
 	background-color: rgb(212, 212, 212);
 	padding: 44px 0;
+	display: none;
 }
 
 .projectCard {
