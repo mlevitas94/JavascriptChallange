@@ -1,9 +1,9 @@
-const container = document.getElementById('purpleRainCont')
+const container = document.getElementById('purplerain')
 var uniqueDroplet = 0
 var mouseX
 var mouseY
 let rainInterval
-const triggerRain = (event) => {
+const triggerRain = () => {
     const rect = container.getBoundingClientRect()
     const x = mouseX - rect.left;
     const y = mouseY - rect.top;
@@ -27,7 +27,7 @@ const clearDroplets = () => {
 }
 document.querySelector('.purpleRainCont').addEventListener('mousedown', (e) => {
     rainInterval = setInterval(() => {
-        triggerRain(e)
+        triggerRain()
     }, 100);
 })
 document.querySelector('.purpleRainCont').addEventListener('mousemove', (e) => {
