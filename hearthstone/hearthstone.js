@@ -3,11 +3,15 @@ let cards = {}
 let displayCards = []
 let rarity = null
 let currentCards = 0
+
+//function to remove currently rendered cards
 const removeDOMCards = () => {
     document.querySelectorAll('.cardScroll img').forEach(img => {
         img.remove()
     })
 }
+
+//function to clear search parameters
 const clearSearch = () => {
     removeDOMCards()
     document.querySelector('#search').value = ''
@@ -20,6 +24,8 @@ const clearSearch = () => {
         input.checked = false
     })
 }
+
+//event listeners for changes in search parameters. Clears cards upon a change and activates special styles and radio functionality for rarity parameter
 document.querySelectorAll(".inputSection input, .inputSection select").forEach(input => {
     if (input.type === 'radio') {
         input.addEventListener('click', (e) => {
@@ -38,6 +44,8 @@ document.querySelectorAll(".inputSection input, .inputSection select").forEach(i
         document.querySelector('.cardSide button').style.display = 'none'
     })
 })
+
+//renders cards based on search parameters and removes "load more cards" if new search query is made on the left.
 const renderCards = (loadMore) => {
     const cardScroll = document.querySelector('.cardScroll')
     document.querySelector('.cardSide button').style.display = 'block'
@@ -47,6 +55,8 @@ const renderCards = (loadMore) => {
             removeDOMCards()
         }
         let tempCurrentCards = currentCards
+
+        //search queries based on set parameters. parameter is ignored if it is unset
         let searchQueries = {
             search: !document.querySelector('#search').value ? null : document.querySelector('#search').value,
             cost: document.querySelector('select[name="cost"]').value,
@@ -113,6 +123,8 @@ const renderCards = (loadMore) => {
     })
     displayCards.splice()
 }
+
+//initial fetch from API 
 fetch('http://localhost:5555/carddata').then(response => {
     response.json().then(body => {
         cards = body

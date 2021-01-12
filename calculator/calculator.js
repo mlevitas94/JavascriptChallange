@@ -2,9 +2,13 @@ let result = 0
 let currentEq = ''
 let resultText = document.querySelector('.calculatorCont .finalResult')
 let currentEqText = document.querySelector('.calculatorCont .currentEq')
+
+//calulate function that rounds to the nearest 100000 th
 const calculate = () => {
     return  Math.round(100000*eval(currentEq))/100000
 }
+
+//adds event listeners to all calculator buttons and forms calculations based on what the button is
 document.querySelectorAll('.calculator .buttons span').forEach(button => {
         button.addEventListener('click', () => {
             if(button.innerHTML === '='){

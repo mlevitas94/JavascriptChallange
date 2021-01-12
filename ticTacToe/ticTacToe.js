@@ -6,6 +6,7 @@ let playAgainConfirmed = false;
 let grid = [null, null, null, null, null, null, null, null, null]
 let turn = null
 
+//function to start game. online param will set online elements. onlineturn param will be 0 or 1 randomly from back end to set each players turn when joined online
 const initializeGame = (online, onlineTurn) => {
     const baseInit = () => {
         playAgainConfirmed = false
@@ -57,6 +58,7 @@ const initializeGame = (online, onlineTurn) => {
 
 }
 
+//reintializes game in local or online
 const playAgain = () => {
     if (!socket?.connected) {
         initializeGame()
@@ -76,6 +78,7 @@ const playAgain = () => {
     }
 }
 
+//function to check grid global variable to see if a placement has won the game
 const checkWin = () => {
 
     const horizontal = [0, 3, 6].map(n => {
@@ -96,6 +99,8 @@ const checkWin = () => {
 
 }
 
+// sets grid variable current turn's symbol, places symbol on DOM grid. stops if placed location causes a win or tie.
+//if no win or tie, sets next turn. If online is connected, placement location is sent to server which sends to other player who calls this function upon recieving socket call
 const nextTurn = async (ele, sendTurn) => {
     //rewriting this for synced online communication
     if (!turn) {
@@ -149,6 +154,7 @@ const nextTurn = async (ele, sendTurn) => {
 
 }
 
+//creates room in server, waits for other player to connect
 const createRoom = async () => {
 
     try {
@@ -188,6 +194,7 @@ const createRoom = async () => {
 
 }
 
+//joins room created in server. If there is no room from user input or room is full, it will reject. Connection is made if a free room is found
 const joinRoom = async () => {
     try {
         socket = await io('http://localhost:5555')
@@ -223,6 +230,8 @@ const joinRoom = async () => {
 
 }
 
+
+//function to change popup modal based on occurences of actions. Can show information and button options as well as executing modal removal and socket disconnection
 const modalChange = (changeTo, data) => {
     preModal.style.display = 'flex'
     switch (changeTo) {

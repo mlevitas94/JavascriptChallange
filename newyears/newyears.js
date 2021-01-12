@@ -1,3 +1,4 @@
+//function to calculate difference between now and upcoming new years. returns array containing the amount of days, hours minutes and seconds
 const dateDifference = () => {
     const currentDate = new Date()
 
@@ -14,6 +15,7 @@ const dateDifference = () => {
 
     return [days, hours, minutes, seconds]
 }
+//defining elements for flipping animation and initializing the current diffence upon page entry
 const secondsFlip = document.querySelector('.seconds .flipCont')
 const secondsInput = document.querySelector('.seconds .flipFront span')
 const secondsInputTwo = document.querySelector('.seconds .bottom span')
@@ -50,9 +52,10 @@ hoursInputTwo.innerHTML = dateDifference()[1]
 daysInput.innerHTML = dateDifference()[0]
 daysInputTwo.innerHTML = dateDifference()[0]
 
-
+//set the new year title to the next year
 document.querySelector('.title span').innerHTML = `${new Date().getFullYear() + 1}`
 
+//interval set for every second to calculate the date difference and execute animation of the countdown
 setInterval(() => {
     const count = dateDifference()
 
@@ -84,6 +87,7 @@ setInterval(() => {
         daysFlip.classList.add('flipped')
     }
 
+    //timeout to reset placement of animations
     setTimeout(() => {
         secondsFlip.classList.remove('flipped')
         secondsInput.innerHTML = `${count[3]}`
@@ -104,5 +108,3 @@ setInterval(() => {
 
 
 }, 1000);
-
-// dateDifference()

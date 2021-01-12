@@ -1,3 +1,4 @@
+//groups to keep track of what items are inside each. Rendered based on this object
 let groups = {
     groupOne: [],
     groupTwo: []
@@ -50,7 +51,6 @@ const newGrabListener = (toBeGrabbed, uniqueItemPlace) => {
 
 
     })
-    //unique item being raised for old items being dragged
 }
 
 

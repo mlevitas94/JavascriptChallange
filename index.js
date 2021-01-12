@@ -15,6 +15,7 @@ const io = require('socket.io')(http, {
 
 const { SERVER_PORT, API_KEY, API_HOST } = process.env
 
+//requests data from hearthstone API and serves it
 app.get('/carddata', cors(), (req, res) => {
   const options = {
     method: 'GET',
@@ -38,16 +39,13 @@ app.get('/carddata', cors(), (req, res) => {
 
 })
 
+//set socket listeners upon socket connection
 io.on('connection', (socket) => {
   console.log('something connected');
   socket.leave(socket.id)
 
-  socket.on('disconnect', () => {
-    console.log('disconnected')
-  })
-
+  //leaves all rooms upon disconnection
   socket.on('disconnecting', () => {
-    console.log('disconnected')
     console.log(socket.rooms)
     socket.rooms.forEach(room => {
       console.log(room)
@@ -55,6 +53,7 @@ io.on('connection', (socket) => {
     })
   })
 
+  //creates room and joins it
   socket.on('createroom', (res) => {
     if (socket.rooms.size > 2) {
       return res({ tooManyRooms: true })
@@ -73,6 +72,7 @@ io.on('connection', (socket) => {
     res({ newRoom: newRoom })
   })
 
+  //joins room from incoming typed data
   socket.on('joinroom', (room, res) => {
     if (!io.sockets.adapter.rooms.get(`room-${room}`) || io.sockets.adapter.rooms.get(`room-${room}`).size >= 2) {
 
@@ -89,18 +89,21 @@ io.on('connection', (socket) => {
     }
   })
 
+  //emits selected grid to waiting player and places the element on the front end
   socket.on('turntaken', (gridElement) => {
     socket.rooms.forEach(room => {
       socket.to(room).emit('waitingturn', gridElement)
     })
   })
 
+  //sets other player's front end variable to show that this player is ready to play again
   socket.on('playagain', () => {
     socket.rooms.forEach(room => {
       socket.to(room).emit('playagainconfirmed')
     })
   })
 
+  //random turn initialization and starts game on front end
   socket.on('initplayagain', (res) => {
     const turn = Math.floor(Math.random() * 2)
     try{
