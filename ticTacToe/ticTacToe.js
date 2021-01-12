@@ -150,6 +150,8 @@ const nextTurn = async (ele, sendTurn) => {
         }
     })
 
+    turnCounter.innerHTML = `Turn : ${turn}`
+
     sendTurn && socket?.connected ? modalChange('waitingturn', `Waiting for ${turn} to go...`) : modalChange('removemodal')
 
 }
