@@ -38,3 +38,7 @@ document.querySelector('.purpleRainCont').addEventListener('mouseup', (e) => {
     clearInterval(rainInterval)
     clearDroplets()
 })
+document.querySelector('.purpleRainCont').addEventListener('mouseleave', (e) => {
+    clearInterval(rainInterval)
+    clearDroplets()
+})
