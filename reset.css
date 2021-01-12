@@ -171,13 +171,23 @@ h1 {
 
 .description h4 {
 	font-weight: bolder;
-	font-size: 33px;
+	font-size: 44px;
 	margin-bottom: 22px;
+}
+
+.description h5{
+	font-weight: bolder;
+	font-size: 22px;
+	margin: 22px 0;
+	text-decoration: underline;
+
 }
 
 .description p {
 	line-height: 1.2rem;
+	font-weight: lighter;
 }
+
 
 .sideNav {
 	position: absolute;
