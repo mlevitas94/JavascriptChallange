@@ -120,7 +120,8 @@
 
 .cardSide {
     width: 70%;
-    overflow: scroll;
+    overflow: auto;
+    overflow-x: hidden;
 
 }
 
